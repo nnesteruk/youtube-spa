@@ -12,13 +12,13 @@ export const Login = () => {
       .post(`${process.env.REACT_APP_BASEURL}/auth/login`, values)
       .then(({ data }) => {
         localStorage.setItem('token', data.token);
-        navigate('/todo');
+        navigate('/search');
       })
       .catch((err) => {
         alert(err.response.data.message);
       });
   };
-  console.log(process.env);
+
   return (
     <div className="login">
       <img className="login__icon" src={icon} alt="Icon" />

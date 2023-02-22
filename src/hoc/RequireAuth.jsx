@@ -6,8 +6,7 @@ export const RequireAuth = ({ children }) => {
 
   if (!auth) {
     alert("You're not authorized to access this page.");
-  } else {
-    return <Navigate to="/" />;
+    return <Navigate to="/search" />;
   }
   return children;
 };
