@@ -14,7 +14,7 @@ const router = createBrowserRouter(
     <Route>
       <Route path="/" element=<Login /> />
       <Route path="/registration" element=<Registration /> />
-      <Route path="/youtube" element={<RequireAuth>//!"ADD Route"</RequireAuth>} />
+      <Route path="/youtube" element={<RequireAuth>//!"ADD component"</RequireAuth>} />
     </Route>,
   ),
 );
