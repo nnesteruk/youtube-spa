@@ -1,0 +1,71 @@
+@import '../../normalize';
+@import '~antd/dist/reset.css';
+
+.login {
+  width: 360px;
+  height: 450px;
+  margin: 165px auto;
+  border: 2px solid;
+  background-color: rgb(244, 242, 242);
+  border-radius: 10px;
+
+  &__icon {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 20px auto;
+  }
+
+  &__title {
+    font-weight: normal;
+    font-size: 25px;
+    text-align: center;
+  }
+
+  &-form__input {
+    width: 290px;
+    margin: 16px auto;
+
+    &-email {
+      font-size: 16px;
+      & input {
+        margin: 5px;
+      }
+    }
+
+    &-password {
+      font-size: 16px;
+      & input {
+        margin: 5px;
+      }
+    }
+  }
+
+  &-form__buttons {
+    display: flex;
+    justify-content: center;
+
+    &-enter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 120px;
+      font-size: 17px;
+      & span {
+        color: var(--white);
+      }
+      &:hover {
+        span {
+          color: black;
+        }
+      }
+    }
+
+    &-registration {
+      font-size: 16px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

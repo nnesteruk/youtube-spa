@@ -1,0 +1,11 @@
+@import '../normalize';
+@import '../components/Authorization/login.scss';
+@import '../components/Authorization/registration.scss';
+
+.active-link {
+  color: rgb(144, 17, 17);
+
+  &:hover {
+    color: #3d71bd;
+  }
+}
