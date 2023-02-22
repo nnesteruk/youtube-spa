@@ -1,4 +1,13 @@
 import logo from './logo.svg';
+import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route />
+    </Route>,
+  ),
+);
 
 function App() {
   return (
