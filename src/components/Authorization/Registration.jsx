@@ -39,7 +39,7 @@ export const Registration = () => {
       <h1 className="registration__title">Регистрация</h1>
       <Form
         {...formItemLayout}
-        className="registration-form"
+        className="registration__form"
         form={form}
         name="register"
         onFinish={onFinish}
@@ -48,7 +48,7 @@ export const Registration = () => {
         }}
         scrollToFirstError>
         <Form.Item
-          className="registration-form__input"
+          className="form__input"
           name="email"
           label="E-mail"
           rules={[
@@ -65,7 +65,7 @@ export const Registration = () => {
         </Form.Item>
 
         <Form.Item
-          className="registration-form__input"
+          className="form__input"
           name="password"
           label="Password"
           tooltip="'Пароль должен быть длиной не менее 8 символов, из них минимум 1 заглавная буква, 1 прописная, 1 число и 1 символ'"
@@ -82,7 +82,7 @@ export const Registration = () => {
         </Form.Item>
 
         <Form.Item
-          className="registration-form__input"
+          className="form__input"
           name="name"
           label="Name"
           tooltip="What is your name?"
@@ -97,7 +97,7 @@ export const Registration = () => {
         </Form.Item>
 
         <Form.Item
-          className="registration-form__input"
+          className="form__input"
           name="username"
           label="Username"
           tooltip="What do you want others to call you?"
@@ -112,7 +112,7 @@ export const Registration = () => {
         </Form.Item>
 
         <Form.Item
-          className="registration-form__input"
+          className="form__input"
           name="age"
           label="Age"
           rules={[
@@ -125,7 +125,7 @@ export const Registration = () => {
         </Form.Item>
 
         <Form.Item
-          className="registration-form__input"
+          className="form__input"
           name="isMan"
           label="isMan"
           rules={[
@@ -140,13 +140,13 @@ export const Registration = () => {
           </Select>
         </Form.Item>
 
-        <Form.Item className="registration-form__button">
-          <Button className="registration-form__button-register" type="primary" htmlType="submit">
+        <Form.Item className="form__button">
+          <Button className="form__button-register" type="primary" htmlType="submit">
             Register
           </Button>
           <p>
             Уже есть аккаунт?{' '}
-            <NavLink to="/Todo-List" className={({ isActive }) => (isActive ? '' : 'active-link')}>
+            <NavLink to="/" className={({ isActive }) => (isActive ? '' : 'active-link')}>
               Войти
             </NavLink>
           </p>

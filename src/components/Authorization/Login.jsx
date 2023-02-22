@@ -3,7 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import icon from '../../assets/img/logo192.png';
+import icon from '../../assets/img/youtube128.png';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export const Login = () => {
         alert(err.response.data.message);
       });
   };
-
+  console.log(process.env);
   return (
     <div className="login">
       <img className="login__icon" src={icon} alt="Icon" />

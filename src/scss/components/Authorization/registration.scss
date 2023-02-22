@@ -14,35 +14,36 @@
     text-align: center;
     margin-bottom: 20px;
   }
-  &-form {
+  &__form {
     padding-left: 8px;
+  }
+}
+.form {
+  &__input {
+    width: 300px;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
 
-    &__input {
-      width: 300px;
+    & p {
+      padding-top: 5px;
     }
-    &__button {
+
+    &-register {
       display: flex;
       justify-content: center;
+      align-items: center;
+      padding: 18px 120px;
+      font-size: 16px;
 
-      & p {
-        padding-top: 5px;
+      & span {
+        color: var(--white);
       }
 
-      &-register {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 18px 120px;
-        font-size: 16px;
-
-        & span {
-          color: var(--white);
-        }
-
-        &:hover {
-          span {
-            color: black;
-          }
+      &:hover {
+        span {
+          color: black;
         }
       }
     }
