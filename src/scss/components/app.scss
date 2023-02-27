@@ -1,11 +1,49 @@
+@import '~antd/dist/reset.css';
 @import '../normalize';
 @import '../components/Authorization/login.scss';
 @import '../components/Authorization/registration.scss';
 
-.active-link {
-  color: rgb(150, 40, 40);
+#head {
+  background-color: white;
+  & li:nth-child(3) {
+    margin-left: 1000px;
+  }
+}
 
-  &:hover {
-    color: #3d71bd;
+.layout {
+  &__header {
+    display: flex;
+  }
+  &__content {
+    padding: 20px 50px 0px 50px;
+  }
+}
+.header {
+  &__icon {
+    width: 65px;
+    height: 65px;
+  }
+  &__menu {
+    & li span {
+      color: #3d71bd;
+    }
+  }
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20%;
+  &__title {
+  }
+  &__input {
+    width: 800px;
+    & button {
+      width: 120px;
+      & span {
+        color: white;
+      }
+    }
   }
 }

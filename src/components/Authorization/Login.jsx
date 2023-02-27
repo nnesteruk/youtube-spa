@@ -12,7 +12,7 @@ export const Login = () => {
       .post(`${process.env.REACT_APP_BASEURL}/auth/login`, values)
       .then(({ data }) => {
         localStorage.setItem('token', data.token);
-        navigate('/search');
+        navigate('/main');
       })
       .catch((err) => {
         alert(err.response.data.message);

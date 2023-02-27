@@ -8,7 +8,7 @@ import './scss/components/app.scss';
 import { Login } from './components/Authorization/Login';
 import { Registration } from './components/Authorization/Registration';
 import { RequireAuth } from './hoc/RequireAuth';
-import { Search } from './components/Search';
+import { Main } from './components/Main';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,10 +16,10 @@ const router = createBrowserRouter(
       <Route path="/" element=<Login /> />
       <Route path="/registration" element=<Registration /> />
       <Route
-        path="/search"
+        path="/main"
         element={
           <RequireAuth>
-            <Search />
+            <Main />
           </RequireAuth>
         }
       />
