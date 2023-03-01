@@ -1,0 +1,27 @@
+.favoriets {
+  &__title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 40px;
+    margin: 40px 0px 0px 0px;
+  }
+  &__search {
+    margin-top: 40px;
+  }
+  &__list {
+    & li {
+      background-color: #fff;
+      border-bottom: 1px solid #f1f1f1;
+    }
+  }
+  &__link {
+    margin: 0px;
+    padding: 14px 0px 14px 20px;
+    color: rgba(0, 0, 0, 1);
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-block;
+  }
+}

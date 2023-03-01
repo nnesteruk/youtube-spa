@@ -5,9 +5,15 @@ export const youtubeApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_SEARCHURL}`,
     prepareHeaders: (headers) => {
+      // const token = localStorage.getItem('token');
+      // if (token) {
+      //   headers.set('Authorization', `Bearer ${token}`);
+      //   api.endpoint()
+      // }
       const token = localStorage.getItem('token');
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set('key', `${process.env.REACT_APP_API_KEY}`);
+        headers.set('Access-Control-Allow-Origin', 'no-cors');
       }
       return headers;
     },

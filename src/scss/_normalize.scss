@@ -1,51 +1,58 @@
 $black: rgb(0, 0, 0);
 $white: #fff;
 
-* {
+*,
+*::after,
+*::before {
   padding: 0;
   margin: 0;
-  list-style: none;
-  outline: none;
-  font-family: 'Nunito', Roboto, system-ui, Tahoma, sans-serif;
+  border: 0;
   box-sizing: border-box;
 }
 
-html {
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+ul,
+ol,
+li {
+  list-style: none;
 }
 
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+html,
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   color: $black;
   overflow-y: hidden;
-}
-
-a,
-span,
-p,
-b,
-h1,
-h2,
-h3,
-h4,
-h5 {
-  color: $black;
-}
-
-h1 {
-  font-size: 48px;
-}
-
-h2 {
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 30px;
-}
-
-a {
-  text-decoration: none;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 16px;
 }
 
 @mixin noselect {
@@ -59,6 +66,6 @@ a {
 }
 
 ._container {
-  max-width: 1202px;
+  max-width: 1140px;
   margin: 0 auto;
 }

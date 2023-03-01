@@ -8,7 +8,9 @@ import './scss/components/app.scss';
 import { Login } from './components/Authorization/Login';
 import { Registration } from './components/Authorization/Registration';
 import { RequireAuth } from './hoc/RequireAuth';
-import { Main } from './components/Main';
+import { Wrap } from './components/Wrap';
+import { SearchPage } from './components/SearchPage';
+import { FavorietsPage } from './components/FavorietsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,10 +21,12 @@ const router = createBrowserRouter(
         path="/main"
         element={
           <RequireAuth>
-            <Main />
+            <Wrap />
           </RequireAuth>
-        }
-      />
+        }>
+        <Route index element=<SearchPage /> />
+        <Route path="/main/favorites" element=<FavorietsPage /> />
+      </Route>
     </Route>,
   ),
 );

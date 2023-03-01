@@ -2,20 +2,21 @@
 @import '../normalize';
 @import '../components/Authorization/login.scss';
 @import '../components/Authorization/registration.scss';
+@import './favorietsPage.scss';
 
 #head {
   background-color: white;
   & li:nth-child(3) {
-    margin-left: 1000px;
+    //margin-left: 1000px;
   }
 }
 
 .layout {
   &__header {
-    display: flex;
+    // display: flex;
   }
   &__content {
-    padding: 20px 50px 0px 50px;
+    //padding: 20px 50px 0px 50px;
   }
 }
 .header {
@@ -28,14 +29,20 @@
       color: #3d71bd;
     }
   }
+  &__container {
+    display: flex;
+  }
 }
+
 .content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin-top: 20%;
+  margin: 220px auto 40px auto;
   &__title {
+    font-size: 36px;
+    line-height: 52px;
   }
   &__input {
     width: 800px;
@@ -45,5 +52,9 @@
         color: white;
       }
     }
+  }
+
+  &__videos {
+    margin-top: 25px;
   }
 }
