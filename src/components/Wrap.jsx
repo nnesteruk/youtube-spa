@@ -10,7 +10,7 @@ const { Header, Content } = Layout;
 export const Wrap = () => {
   const navigate = useNavigate();
 
-  const { data } = youtubeApi.useGetListQuery('');
+  //const { data } = youtubeApi.useGetListQuery('');
 
   // console.log(data);
 

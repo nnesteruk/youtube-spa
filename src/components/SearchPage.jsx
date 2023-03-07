@@ -1,18 +1,20 @@
 import { Input, Space } from 'antd';
-
 import { HeartOutlined } from '@ant-design/icons';
+import { ModalWindow } from './ModalWindow';
+import { useState } from 'react';
 
 const { Search } = Input;
 
 export const SearchPage = () => {
-  const heartClickHandler = () => console.log('add to private');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const heartClickHandler = () => {};
   const suffix = (
     <HeartOutlined
       style={{
         fontSize: 16,
         color: '#1890ff',
       }}
-      onClick={() => heartClickHandler()}
+      onClick={() => setIsModalOpen(true)}
     />
   );
   const onSearch = (value) => {
@@ -37,6 +39,7 @@ export const SearchPage = () => {
           suffix={suffix}
           onSearch={onSearch}
         />
+        <ModalWindow isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       </Space>
     </div>
   );
