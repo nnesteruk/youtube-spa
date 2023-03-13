@@ -1,3 +1,61 @@
 .modal {
-  width: 510px;
+  & label {
+    font-size: 16px;
+  }
+  &__title {
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    margin: 16px 0px 36px;
+  }
+  &__form {
+    & input {
+      font-size: 20px;
+      height: 48px;
+    }
+  }
+  &__contect {
+    margin: 0px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  &__button {
+    width: 210px;
+    height: 52px;
+  }
+  &__count {
+  }
+
+  &__slider {
+    width: 310px;
+    height: 18px;
+    margin: 12px 0px;
+    &-number {
+      margin-left: 20px;
+      padding-top: 4px;
+      & div input {
+        text-align: center;
+      }
+    }
+  }
+}
+.required::before {
+  position: relative;
+  display: inline-block;
+  left: 0;
+  top: 2.5px;
+  content: '*';
+  color: red;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.button {
+  font-size: 20px;
+  line-height: 24px;
 }

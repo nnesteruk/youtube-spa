@@ -10,7 +10,7 @@ import { Registration } from './components/Authorization/Registration';
 import { RequireAuth } from './hoc/RequireAuth';
 import { Wrap } from './components/Wrap';
 import { SearchPage } from './components/SearchPage';
-import { FavorietsPage } from './components/FavorietsPage';
+import { FavoritesPage } from './components/FavoritesPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
           </RequireAuth>
         }>
         <Route index element=<SearchPage /> />
-        <Route path="/main/favorites" element=<FavorietsPage /> />
+        <Route path="/main/favorites" element=<FavoritesPage /> />
       </Route>
     </Route>,
   ),

@@ -7,14 +7,18 @@ const { Search } = Input;
 
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const heartClickHandler = () => {};
+  const [searchText, setSearchText] = useState(null);
+  const heartClickHandler = (event) => {
+    console.log(searchText);
+    setIsModalOpen(true);
+  };
   const suffix = (
     <HeartOutlined
       style={{
         fontSize: 16,
         color: '#1890ff',
       }}
-      onClick={() => setIsModalOpen(true)}
+      onClick={() => heartClickHandler()}
     />
   );
   const onSearch = (value) => {
@@ -36,10 +40,15 @@ export const SearchPage = () => {
           enterButton="Найти"
           size="large"
           className="content__input"
+          onChange={(e) => setSearchText(e.target.value)}
           suffix={suffix}
           onSearch={onSearch}
         />
-        <ModalWindow isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+        <ModalWindow
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          searchText={searchText}
+        />
       </Space>
     </div>
   );

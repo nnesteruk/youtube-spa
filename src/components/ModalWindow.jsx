@@ -1,6 +1,7 @@
-import { Modal, Button, Form, Input, Select } from 'antd';
+import { Modal, Button, Form, Input, Select, Space, InputNumber, Slider } from 'antd';
+import { useState } from 'react';
 
-export const ModalWindow = ({ isModalOpen, setIsModalOpen }) => {
+export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText }) => {
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -11,58 +12,94 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen }) => {
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+  const [inputValue, setInputValue] = useState(1);
+  const onChange = (newValue) => {
+    setInputValue(newValue);
+  };
 
   return (
     <Modal
-      className="modal"
-      title="Сохранить запрос"
+      wrapClassName="modal"
       centered
       open={isModalOpen}
-      onOk={handleOk}
-      onCancel={handleCancel}>
+      onCancel={handleCancel}
+      footer={null}
+      width={510}
+      closable={false}
+      bodyStyle={{ height: '500px', padding: '0px', width: '430px', margin: '0px auto' }}>
       <div className="modal__content">
-        <Form form={form} layout="vertical" requiredMark={true}>
-          <Form.Item label="Запрос">
-            <Input placeholder="input placeholder" disabled={true} />
+        <h1 className="modal__title">Сохранить запрос</h1>
+        <Form form={form} layout="vertical" requiredMark={true} className="modal__form">
+          <Form.Item>
+            <label>Запрос</label>
+            <Input
+              className="input"
+              placeholder="input placeholder"
+              disabled={true}
+              value={searchText}
+            />
           </Form.Item>
           <Form.Item
-            name="name"
-            label="Наименование"
+            noStyle={false}
             rules={[{ required: true }, { type: 'string', warningOnly: true }]}>
-            <Input placeholder="Укажите название" />
+            <label className="required">Название</label>
+            <Input className="input" placeholder="Укажите название" />
           </Form.Item>
-          <Form.Item label="Наименование">
+          <Form.Item>
+            <label>Сортировать по</label>
             <Select
               placeholder="Без сортировки"
-              style={{
-                width: 320,
-              }}
               onChange={handleChange}
               options={[
                 {
-                  value: 'jack',
-                  label: 'Jack',
+                  label: 'По дате загрузки',
+                  value: 'date',
                 },
                 {
-                  value: 'lucy',
-                  label: 'Lucy',
+                  label: 'По числу просмотров',
+                  value: 'views',
                 },
                 {
-                  value: 'Yiminghe',
-                  label: 'yiminghe',
+                  label: 'По рейтингу',
+                  value: 'rating',
                 },
                 {
-                  value: 'disabled',
                   label: 'Disabled',
+                  value: 'disabled',
                   disabled: true,
                 },
               ]}
             />
           </Form.Item>
-
-          <Form.Item>
-            <Button type="primary">Не сохранять</Button>
-            <Button type="primary">Сохранить</Button>
+          <Form.Item className="modal__count">
+            <label>Максимальное количество</label>
+            <div style={{ display: 'flex' }}>
+              <Slider
+                min={1}
+                max={50}
+                onChange={onChange}
+                className="modal__slider"
+                value={typeof inputValue === 'number' ? inputValue : 0}
+              />
+              <InputNumber
+                min={1}
+                max={50}
+                className="modal__slider-number"
+                value={inputValue}
+                style={{ fontSize: '20px' }}
+                onChange={onChange}
+              />
+            </div>
+          </Form.Item>
+          <Form.Item className="modal__buttons">
+            <Space>
+              <Button className="modal__button button" onClick={() => handleCancel()}>
+                Не сохранять
+              </Button>
+              <Button className="modal__button button" type="primary" onClick={() => handleOk()}>
+                Сохранить
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
       </div>
