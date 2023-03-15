@@ -14,8 +14,13 @@
       height: 48px;
     }
   }
-  &__contect {
+  &__content {
     margin: 0px;
+  }
+
+  &__count {
+    display: flex;
+    width: 100%;
   }
 
   &__buttons {
@@ -28,19 +33,17 @@
     width: 210px;
     height: 52px;
   }
-  &__count {
-  }
 
   &__slider {
     width: 310px;
     height: 18px;
-    margin: 12px 0px;
+    margin: 12px 0px 12px 6px;
+
     &-number {
       margin-left: 20px;
       padding-top: 4px;
-      & div input {
-        text-align: center;
-      }
+      font-size: 20px;
+      width: 100px;
     }
   }
 }

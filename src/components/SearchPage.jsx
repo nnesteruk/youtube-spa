@@ -1,6 +1,6 @@
 import { Input, Space } from 'antd';
 import { HeartOutlined } from '@ant-design/icons';
-import { ModalWindow } from './ModalWindow';
+import { ModalWindow } from './Modal/ModalWindow';
 import { useState } from 'react';
 
 const { Search } = Input;
@@ -8,8 +8,7 @@ const { Search } = Input;
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState(null);
-  const heartClickHandler = (event) => {
-    console.log(searchText);
+  const heartClickHandler = () => {
     setIsModalOpen(true);
   };
   const suffix = (

@@ -1,4 +1,4 @@
-.favoriets {
+.favorites {
   &__title {
     font-family: 'Roboto';
     font-style: normal;
@@ -14,6 +14,11 @@
     & li {
       background-color: #fff;
       border-bottom: 1px solid #f1f1f1;
+      display: flex;
+      justify-content: space-between;
+      &:active {
+        border: 1px solid #1390e5;
+      }
     }
   }
   &__link {
@@ -23,5 +28,34 @@
     font-weight: 500;
     cursor: pointer;
     display: inline-block;
+  }
+}
+.buttons {
+  width: 201px;
+  text-align: center;
+  padding: 12px 20px 15px 30px;
+  font-size: 14px;
+  line-height: 20px;
+  & button {
+    cursor: pointer;
+  }
+  &__change {
+    width: 66px;
+    height: 20px;
+    color: #1390e5;
+    background-color: inherit;
+    &:hover {
+      color: #02558c;
+    }
+  }
+  &__delete {
+    width: 55px;
+    height: 20px;
+    color: #ff0000;
+    background-color: inherit;
+    margin-left: 30px;
+    &:hover {
+      color: #7d0101;
+    }
   }
 }
