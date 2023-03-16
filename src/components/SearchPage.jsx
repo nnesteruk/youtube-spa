@@ -2,15 +2,19 @@ import { Input, Space } from 'antd';
 import { HeartOutlined } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
 import { useState } from 'react';
+import axios from 'axios';
+import { youtubeApi } from '../redux/services/youtubeApi';
 
 const { Search } = Input;
 
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState(null);
+  const { data } = youtubeApi.useGetListQuery('');
   const heartClickHandler = () => {
     setIsModalOpen(true);
   };
+
   const suffix = (
     <HeartOutlined
       style={{
@@ -29,6 +33,7 @@ export const SearchPage = () => {
     //   })
     //   .then((data) => console.log(data))
     //   .catch((err) => console.log(err));
+    console.log(data);
   };
   return (
     <div className="content _container">

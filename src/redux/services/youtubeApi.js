@@ -12,9 +12,10 @@ export const youtubeApi = createApi({
       // }
       const token = localStorage.getItem('token');
       if (token) {
+        // headers.set('cors', 'no-cors');
         headers.set('key', `${process.env.REACT_APP_API_KEY}`);
-        headers.set('Access-Control-Allow-Origin', 'no-cors');
       }
+      console.log(headers);
       return headers;
     },
   }),
