@@ -2,7 +2,6 @@ import { Input, Space } from 'antd';
 import { HeartOutlined } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
 import { useState } from 'react';
-import axios from 'axios';
 import { youtubeApi } from '../redux/services/youtubeApi';
 
 const { Search } = Input;

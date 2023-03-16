@@ -1,7 +1,7 @@
 import { Modal, Button, Form, Input, Select, Space, InputNumber, Slider } from 'antd';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addFavorite } from '../../redux/favorite/slice';
+import { addFavoriteAction } from '../../redux/favorite/slice';
 
 const { Option } = Select;
 
@@ -15,11 +15,12 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, requestSt
     setCount(number);
   };
 
-  const addRequest = (favorite) => dispatch(addFavorite(favorite));
-  const handleSave = ({ name, sort }) => {
+  const addRequest = (favorite) => dispatch(addFavoriteAction(favorite));
+  const handleSave = ({ request, name, sort }) => {
+    console.log(request);
     addRequest({
       id: Date.now(),
-      request: searchText,
+      request,
       name,
       sort,
       count,
@@ -51,12 +52,11 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, requestSt
           onFinish={handleSave}
           ref={formRef}>
           <label>Запрос</label>
-          <Form.Item>
+          <Form.Item name="request" initialValue={searchText}>
             <Input
               className="input"
               placeholder="input placeholder"
               disabled={typeof requestStatus === 'undefined' ? true : false}
-              value={searchText}
             />
           </Form.Item>
 

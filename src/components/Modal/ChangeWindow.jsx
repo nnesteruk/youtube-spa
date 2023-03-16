@@ -1,7 +1,7 @@
 import { Modal, Button, Form, Input, Select, Space, InputNumber, Slider } from 'antd';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addFavorite } from '../../redux/favorite/slice';
+import { updateFavoriteAction } from '../../redux/favorite/slice';
 
 const { Option } = Select;
 
@@ -15,20 +15,20 @@ export const ChangeWindow = ({ isModalOpen, setIsModalOpen, item }) => {
     setCount(number);
   };
 
-  const addRequest = (favorite) => dispatch(addFavorite(favorite));
-  const handleSave = ({ name, sort }) => {
-    addRequest({
-      id: Date.now(),
-      //request
+  const updateRequest = (favorite) => dispatch(updateFavoriteAction(favorite));
+  const handleChange = ({ request, name, sort }) => {
+    updateRequest({
+      id: item.id,
+      request,
       name,
       sort,
       count,
     });
-    formRef.current?.resetFields();
-    setCount(1);
+    // formRef.current?.resetFields();
+    // setCount(1);
     setIsModalOpen(false);
   };
-  const handleNotSave = () => {
+  const handleNotChange = () => {
     setIsModalOpen(false);
   };
   return (
@@ -47,11 +47,11 @@ export const ChangeWindow = ({ isModalOpen, setIsModalOpen, item }) => {
           layout="vertical"
           requiredMark={true}
           className="modal__form"
-          onFinish={handleSave}
+          onFinish={handleChange}
           ref={formRef}>
           <label>Запрос</label>
-          <Form.Item>
-            <Input className="input" placeholder="input placeholder" value={item.request} />
+          <Form.Item name="request" initialValue={item.request}>
+            <Input className="input" placeholder="input placeholder" />
           </Form.Item>
 
           <label className="required">Название</label>
@@ -94,7 +94,7 @@ export const ChangeWindow = ({ isModalOpen, setIsModalOpen, item }) => {
           </Form.Item>
           <Form.Item className="modal__buttons">
             <Space>
-              <Button className="modal__button button" onClick={() => handleNotSave()}>
+              <Button className="modal__button button" onClick={() => handleNotChange()}>
                 Не изменять
               </Button>
               <Button className="modal__button button" type="primary" htmlType="submit">
