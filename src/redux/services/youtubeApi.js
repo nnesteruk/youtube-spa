@@ -14,15 +14,16 @@ export const youtubeApi = createApi({
       if (token) {
         // headers.set('cors', 'no-cors');
         headers.set('key', `${process.env.REACT_APP_API_KEY}`);
+        console.log(headers.get('key'));
       }
-      console.log(headers);
+      console.log(process.env.REACT_APP_API_KEY);
       return headers;
     },
   }),
   endpoints: (build) => ({
     getList: build.query({
       query: () => ({
-        url: '/videos',
+        url: '/search',
       }),
     }),
   }),

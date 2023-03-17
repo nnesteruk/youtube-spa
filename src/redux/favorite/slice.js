@@ -17,12 +17,11 @@ export const favoriteSlice = createSlice({
     updateFavoriteAction(state, action) {
       const { id } = action.payload;
       const current = state.requests.find((item) => item.id === id);
-      const result = { ...current, ...action.payload };
-
-      // current.request = action.payload.request;
-      // current.name = action.payload.name;
-      // current.sort = action.payload.sort;
-      // current.count = action.payload.count;
+      // const result = { ...current, ...action.payload };
+      current.request = action.payload.request;
+      current.name = action.payload.name;
+      current.sort = action.payload.sort;
+      current.count = action.payload.count;
     },
   },
 });

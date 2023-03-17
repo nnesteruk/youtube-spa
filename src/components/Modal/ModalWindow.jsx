@@ -5,7 +5,7 @@ import { addFavoriteAction } from '../../redux/favorite/slice';
 
 const { Option } = Select;
 
-export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, requestStatus }) => {
+export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRequest }) => {
   const [form] = Form.useForm();
   const [count, setCount] = useState(1); //!Количество видео
   const dispatch = useDispatch();
@@ -28,6 +28,7 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, requestSt
     formRef.current?.resetFields();
     setCount(1);
     setIsModalOpen(false);
+    setSaveRequest(true);
   };
   const handleNotSave = () => {
     setIsModalOpen(false);
@@ -56,7 +57,8 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, requestSt
             <Input
               className="input"
               placeholder="input placeholder"
-              disabled={typeof requestStatus === 'undefined' ? true : false}
+              // disabled={typeof requestStatus === 'undefined' ? true : false}
+              disabled={true}
             />
           </Form.Item>
 

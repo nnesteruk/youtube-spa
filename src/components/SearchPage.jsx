@@ -1,28 +1,44 @@
-import { Input, Space } from 'antd';
-import { HeartOutlined } from '@ant-design/icons';
+import { Input, Space, Tooltip } from 'antd';
+import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
 import { useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
+import { NavLink } from 'react-router-dom';
 
 const { Search } = Input;
 
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState(null);
+  const [saveRequest, setSaveRequest] = useState(false);
   const { data } = youtubeApi.useGetListQuery('');
   const heartClickHandler = () => {
     setIsModalOpen(true);
   };
 
-  const suffix = (
-    <HeartOutlined
-      style={{
-        fontSize: 16,
-        color: '#1890ff',
-      }}
-      onClick={() => heartClickHandler()}
-    />
-  );
+  const suffix =
+    searchText && saveRequest ? (
+      <Tooltip
+        title={() => (
+          <div className="tooltip">
+            <p>Поиск сохранён в разделе «Избранное»</p>
+            <NavLink to="/main/favorites">Перейти в избранное</NavLink>
+          </div>
+        )}
+        color="white"
+        overlayInnerStyle={{
+          color: 'black',
+          backgroundColor: '#fff',
+          width: '220px',
+          padding: '14px',
+        }}
+        placement="bottom"
+        open>
+        <HeartTwoTone className="icon-heart" onClick={() => heartClickHandler()} />
+      </Tooltip>
+    ) : (
+      <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
+    );
   const onSearch = (value) => {
     // axios
     //   .get(`${process.env.REACT_APP_SEARCHURL}/videos`, {
@@ -51,6 +67,7 @@ export const SearchPage = () => {
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           searchText={searchText}
+          setSaveRequest={setSaveRequest}
         />
       </Space>
     </div>
