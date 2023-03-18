@@ -11,7 +11,7 @@ export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState(null);
   const [saveRequest, setSaveRequest] = useState(false);
-  const { data } = youtubeApi.useGetListQuery('');
+  const { data } = youtubeApi.useGetListQuery(searchText);
   const heartClickHandler = () => {
     setIsModalOpen(true);
   };
@@ -49,13 +49,14 @@ export const SearchPage = () => {
     //   .then((data) => console.log(data))
     //   .catch((err) => console.log(err));
     console.log(data);
+    console.log(value);
   };
   return (
     <div className="content _container">
       <Space direction="vertical" size="small">
         <h1 className="content__title">Поиск видео</h1>
         <Search
-          placeholder="input search text"
+          placeholder="Что хотите посмотреть?"
           enterButton="Найти"
           size="large"
           className="content__input"

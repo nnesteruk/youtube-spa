@@ -9,7 +9,14 @@ export const favoriteSlice = createSlice({
   initialState,
   reducers: {
     addFavoriteAction(state, action) {
-      state.requests.push({ ...action.payload });
+      const current = state.requests.find((item) => item.name === action.payload.name);
+      if (current) {
+        throw new Error(
+          alert('Запрос с таким названием уже сохранён. Пожалуйста выберите другое название'),
+        );
+      } else {
+        state.requests.push({ ...action.payload });
+      }
     },
     deleteFavoriteAction(state, action) {
       state.requests = state.requests.filter((item) => item.id !== action.payload.id);
