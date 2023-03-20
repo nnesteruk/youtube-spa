@@ -7,7 +7,7 @@ const { Option } = Select;
 
 export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRequest }) => {
   const [form] = Form.useForm();
-  const [count, setCount] = useState(1); //!Количество видео
+  const [count, setCount] = useState(0); //!Количество видео
   const dispatch = useDispatch();
   const formRef = useRef(null);
 
@@ -84,14 +84,14 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
           <Form.Item>
             <div className="modal__count">
               <Slider
-                min={1}
+                min={0}
                 max={50}
                 onChange={onChange}
                 className="modal__slider"
                 value={typeof count === 'number' ? count : 0}
               />
               <InputNumber
-                min={1}
+                min={0}
                 max={50}
                 className="modal__slider-number"
                 value={typeof count === 'number' ? count : 0}

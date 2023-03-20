@@ -77,14 +77,14 @@ export const ChangeWindow = ({ isModalOpen, setIsModalOpen, item }) => {
           <Form.Item>
             <div className="modal__count">
               <Slider
-                min={1}
+                min={0}
                 max={50}
                 onChange={onChange}
                 className="modal__slider"
                 value={typeof count === 'number' ? count : 0}
               />
               <InputNumber
-                min={1}
+                min={0}
                 max={50}
                 className="modal__slider-number"
                 value={typeof count === 'number' ? count : 0}

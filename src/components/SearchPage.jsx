@@ -11,7 +11,7 @@ export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState(null);
   const [saveRequest, setSaveRequest] = useState(false);
-  const { data } = youtubeApi.useGetListQuery(searchText);
+  const { data, isSuccess } = youtubeApi.useGetListQuery(searchText);
   const heartClickHandler = () => {
     setIsModalOpen(true);
   };
@@ -64,6 +64,19 @@ export const SearchPage = () => {
           suffix={suffix}
           onSearch={onSearch}
         />
+
+        {isSuccess && (
+          <>
+            <p className="content__signature">
+              Видео по запросу <span>«{searchText}»</span>
+            </p>
+            <ul>
+              {data.items.map((item) => (
+                <li key={item.etag}>{item.snippet.title}</li>
+              ))}
+            </ul>
+          </>
+        )}
         <ModalWindow
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
