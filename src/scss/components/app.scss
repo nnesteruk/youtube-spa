@@ -59,11 +59,19 @@
     line-height: 24px;
     & span {
       font-weight: 500;
+      display: inline-block;
+      margin-right: 15px;
     }
   }
 
   &__videos {
     margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__img {
+    width: 245px;
+    height: 138px;
   }
 }
 
@@ -71,7 +79,12 @@
   font-size: 18px;
   color: #1890ff;
 }
+
 .tooltip {
   font-size: 14px;
   line-height: 24px;
+}
+
+.card-video {
+  width: 245px;
 }

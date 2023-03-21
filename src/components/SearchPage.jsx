@@ -3,7 +3,7 @@ import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
 import { useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { Search } = Input;
 
@@ -12,6 +12,9 @@ export const SearchPage = () => {
   const [searchText, setSearchText] = useState(null);
   const [saveRequest, setSaveRequest] = useState(false);
   const { data, isSuccess } = youtubeApi.useGetListQuery(searchText);
+  const videos = data?.items;
+  // const { totalResults } = data?.pageInfo;
+  // console.log(totalResults);
   const heartClickHandler = () => {
     setIsModalOpen(true);
   };
@@ -22,7 +25,7 @@ export const SearchPage = () => {
         title={() => (
           <div className="tooltip">
             <p>Поиск сохранён в разделе «Избранное»</p>
-            <NavLink to="/main/favorites">Перейти в избранное</NavLink>
+            <Link to="/main/favorites">Перейти в избранное</Link>
           </div>
         )}
         color="white"
@@ -66,16 +69,24 @@ export const SearchPage = () => {
         />
 
         {isSuccess && (
-          <>
-            <p className="content__signature">
-              Видео по запросу <span>«{searchText}»</span>
-            </p>
-            <ul>
-              {data.items.map((item) => (
-                <li key={item.etag}>{item.snippet.title}</li>
+          <div className="_container">
+            <div className="">
+              <p className="content__signature">
+                Видео по запросу <span>«{searchText}»</span>
+                {/* <span>{totalResults}</span> */}
+              </p>
+            </div>
+            <></>
+            <div className="content__videos">
+              {videos.map((item) => (
+                <div key={item.etag} className="card-video">
+                  <img className="content__img" src={item.snippet.thumbnails.high.url} alt="" />
+                  <h2>{item.snippet.title}</h2>
+                  <h4> {item.snippet.channelTitle}</h4>
+                </div>
               ))}
-            </ul>
-          </>
+            </div>
+          </div>
         )}
         <ModalWindow
           isModalOpen={isModalOpen}
