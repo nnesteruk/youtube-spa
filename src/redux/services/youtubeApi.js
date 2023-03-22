@@ -15,13 +15,13 @@ export const youtubeApi = createApi({
   }),
   endpoints: (build) => ({
     getList: build.query({
-      query: (searchText, limit = 12) => ({
+      query: (searchText = '', limit = 12) => ({
         url: '/search',
         params: {
           key: `${process.env.REACT_APP_API_KEY}`,
           part: 'snippet',
           maxResults: limit,
-          q: searchText,
+          // q: searchText,
         },
       }),
     }),

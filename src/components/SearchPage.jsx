@@ -11,10 +11,12 @@ export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState(null);
   const [saveRequest, setSaveRequest] = useState(false);
-  const { data, isSuccess } = youtubeApi.useGetListQuery(searchText);
+  const [skip, setSkip] = useState(true);
+  const { data, isSuccess } = youtubeApi.useGetListQuery(searchText, { skip });
   const videos = data?.items;
-  // const { totalResults } = data?.pageInfo;
+  // const { totalResults } = isSuccess && data?.pageInfo;
   // console.log(totalResults);
+
   const heartClickHandler = () => {
     setIsModalOpen(true);
   };
@@ -42,18 +44,13 @@ export const SearchPage = () => {
     ) : (
       <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
     );
+
   const onSearch = (value) => {
-    // axios
-    //   .get(`${process.env.REACT_APP_SEARCHURL}/videos`, {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //     },
-    //   })
-    //   .then((data) => console.log(data))
-    //   .catch((err) => console.log(err));
     console.log(data);
     console.log(value);
+    setSkip(false);
   };
+
   return (
     <div className="content _container">
       <Space direction="vertical" size="small">
@@ -65,7 +62,7 @@ export const SearchPage = () => {
           className="content__input"
           onChange={(e) => setSearchText(e.target.value)}
           suffix={suffix}
-          onSearch={onSearch}
+          onSearch={() => onSearch()}
         />
 
         {isSuccess && (
