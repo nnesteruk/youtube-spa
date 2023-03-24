@@ -12,7 +12,11 @@ export const SaveRequest = ({ item }) => {
 
   const handleClick = (event) => {
     const request = event.target.innerText;
-    console.log(request);
+    const favoriteRequest = JSON.parse(localStorage.getItem('favorites')).find(
+      (item) => item.name === request,
+    );
+    console.log(favoriteRequest);
+    localStorage.setItem('choice', JSON.stringify(favoriteRequest));
     navigate('/main');
   };
   return (

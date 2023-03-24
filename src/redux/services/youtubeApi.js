@@ -21,12 +21,11 @@ export const youtubeApi = createApi({
           key: `${process.env.REACT_APP_API_KEY}`,
           part: 'snippet',
           maxResults: limit,
-          // q: searchText,
+          q: searchText,
         },
       }),
     }),
   }),
 });
-//youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&order=date&q=%D0%9A%D0%B0%D0%BA%20%D0%B7%D0%B0%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%D1%82%D1%8C&key=[YOUR_API_KEY]
 
 //export const { useGetListQuery } = youtubeApi;
