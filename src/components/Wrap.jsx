@@ -2,25 +2,11 @@ import { Layout, Menu } from 'antd';
 import React from 'react';
 import icon from '../assets/img/youtube.ico';
 import { Outlet, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { youtubeApi } from '../redux/services/youtubeApi';
 
 const { Header, Content } = Layout;
 
 export const Wrap = () => {
   const navigate = useNavigate();
-
-  //const { data } = youtubeApi.useGetListQuery('');
-
-  // console.log(data);
-
-  // const header = (headers) => {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     headers.set('Authorization', `Bearer ${token}`);
-  //   }
-  //   return headers;
-  // };
 
   return (
     <Layout className="layout ">

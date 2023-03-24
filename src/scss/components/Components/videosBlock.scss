@@ -12,6 +12,7 @@
       margin: 0px 0px;
       & span {
         font-weight: 500;
+        margin: 0px 15px 0px 5px;
       }
     }
   }
@@ -52,14 +53,51 @@
     width: 245px;
     height: 138px;
   }
+
+  &__content2 {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__block2 {
+    display: flex;
+    margin-bottom: 32px;
+  }
+  &__text2 {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    width: 510px;
+    margin-left: 20px;
+    // & h2 {
+    //   font-weight: 500;
+    // }
+    & h4 {
+      margin: 0;
+      font-weight: 400;
+      color: #1717194d;
+    }
+  }
+  &__img2 {
+    width: 157px;
+    height: 88px;
+  }
 }
 
 .icon-list {
   font-size: 24px;
+  color: #1717194d;
 }
 
 .icon-block {
   // margin: 0px 15px;
   margin-left: 15px;
   font-size: 24px;
+}
+
+.icon-red {
+  color: red;
 }

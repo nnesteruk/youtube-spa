@@ -10,8 +10,8 @@ const { Search } = Input;
 
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const choice = JSON.parse(localStorage.getItem('choice')) || '';
-  const [searchText, setSearchText] = useState(choice.request || '');
+  const choice = JSON.parse(localStorage.getItem('choice')) || null;
+  const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
   const { data, isSuccess } = youtubeApi.useGetListQuery(searchText, { skip });
@@ -22,10 +22,14 @@ export const SearchPage = () => {
     setIsModalOpen(true);
   };
 
-  // useEffect(() => {
-  //   setSkip(false);
-  //   localStorage.removeItem('choice');
-  // }, [choice]);
+  useEffect(() => {
+    if (choice) {
+      setSearchText(choice.request);
+      setSkip(false);
+      localStorage.removeItem('choice');
+    }
+    <Search />;
+  }, [choice]);
 
   const suffix =
     searchText && saveRequest ? (
@@ -50,6 +54,7 @@ export const SearchPage = () => {
     ) : (
       <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
     );
+
   const heart = isSuccess ? suffix : null;
   const content = isSuccess ? 'content2 _container' : 'content _container';
   const searchInput = isSuccess ? '' : 'content__input';
