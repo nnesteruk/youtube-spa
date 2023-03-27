@@ -1,6 +1,6 @@
 import { UnorderedListOutlined, AppstoreOutlined } from '@ant-design/icons';
 
-export const VideosBlock = ({ data, isSuccess, searchText }) => {
+export const VideosBlock = ({ data, isSuccess, searchText, sort }) => {
   const videos = data?.items;
   const { totalResults } = isSuccess && data?.pageInfo;
   const [id] = videos.map((item) => item);
@@ -17,6 +17,8 @@ export const VideosBlock = ({ data, isSuccess, searchText }) => {
               Видео по запросу <span>«{searchText}»</span>
             </p>
             <span className="videos__count">{totalResults}</span>
+            <span>Количество видео {videos.length}</span>
+            <span>Сортировка: {sort}</span>
           </div>
           <div>
             <UnorderedListOutlined

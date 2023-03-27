@@ -67,9 +67,12 @@ export const ChangeWindow = ({ isModalOpen, setIsModalOpen, item }) => {
           <label>Сортировать по</label>
           <Form.Item name="sort" initialValue={item.sort}>
             <Select placeholder="Без сортировки" size="large">
+              <Option value="relevance">По умолчанию</Option>
               <Option value="date">По дате загрузки</Option>
-              <Option value="views">По числу просмотров</Option>
               <Option value="rating">По рейтингу</Option>
+              <Option value="title">По названию</Option>
+              <Option value="videoCount">По каналам</Option>
+              <Option value="viewCount">По числу просмотров</Option>
             </Select>
           </Form.Item>
 

@@ -11,12 +11,19 @@ const { Search } = Input;
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const choice = JSON.parse(localStorage.getItem('choice')) || null;
+  // const { count, sort } = JSON.parse(localStorage.getItem('choice'));
+  // console.log(count, sort);
   const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
-  const { data, isSuccess } = youtubeApi.useGetListQuery(searchText, { skip });
-  // const videos = data?.items;
-  // const { totalResults } = isSuccess && data?.pageInfo;
+  const { data, isSuccess } = youtubeApi.useGetListQuery(
+    {
+      searchText,
+      limit: choice?.count || 15,
+      order: choice?.sort || 'relevance',
+    },
+    { skip },
+  );
 
   const heartClickHandler = () => {
     setIsModalOpen(true);
@@ -26,7 +33,7 @@ export const SearchPage = () => {
     if (choice) {
       setSearchText(choice.request);
       setSkip(false);
-      localStorage.removeItem('choice');
+      // localStorage.removeItem('choice');
     }
     <Search />;
   }, [choice]);
@@ -81,7 +88,14 @@ export const SearchPage = () => {
         onSearch={() => onSearch()}
       />
 
-      {isSuccess && <VideosBlock data={data} isSuccess={isSuccess} searchText={searchText} />}
+      {isSuccess && (
+        <VideosBlock
+          data={data}
+          isSuccess={isSuccess}
+          searchText={searchText}
+          sort={choice?.sort}
+        />
+      )}
       <ModalWindow
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}

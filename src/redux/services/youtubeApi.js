@@ -15,15 +15,22 @@ export const youtubeApi = createApi({
   }),
   endpoints: (build) => ({
     getList: build.query({
-      query: (searchText = '', limit = 12) => ({
-        url: '/search',
-        params: {
-          key: `${process.env.REACT_APP_API_KEY}`,
-          part: 'snippet',
-          maxResults: limit,
-          q: searchText,
-        },
-      }),
+      query: (arg) => {
+        const { searchText, limit, order } = arg;
+        return {
+          // url: `/search?part=snippet${limit && `&maxResults=${limit}`}${
+          //   order && `&order=${order}`
+          // }${searchText && `&q=${searchText}`}&key=${process.env.REACT_APP_API_KEY} `,
+          url: `/search`,
+          params: {
+            key: `${process.env.REACT_APP_API_KEY}`,
+            part: 'snippet',
+            maxResults: limit,
+            q: searchText,
+            order,
+          },
+        };
+      },
     }),
   }),
 });
