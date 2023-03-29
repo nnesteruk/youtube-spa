@@ -1,25 +1,19 @@
 import { Fragment, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteFavoriteAction, addChoiceAction } from '../../redux/favorite/slice';
 import { ChangeWindow } from '../Modal/ChangeWindow';
 
-export const SaveRequest = ({ item }) => {
+export const SaveRequest = ({ item, favorites }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const deleteRequest = (id) => dispatch(deleteFavoriteAction({ id }));
   const navigate = useNavigate();
-  const { choice } = useSelector((state) => state.favorites);
-  console.log(choice);
 
   const handleClick = (event) => {
     const request = event.target.innerText;
-    const favoriteRequest = JSON.parse(localStorage.getItem('favorites')).find(
-      (item) => item.name === request,
-    );
-    console.log(favoriteRequest);
+    const favoriteRequest = favorites.find((item) => item.name === request);
     dispatch(addChoiceAction(favoriteRequest));
-    console.log(choice);
     // localStorage.setItem('choice', JSON.stringify(favoriteRequest));
     navigate('/main');
   };
