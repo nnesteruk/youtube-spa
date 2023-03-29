@@ -1,16 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// const token = localStorage.getItem('token');
-// const check = () => {
-//   const token2 = JSON.parse(localStorage.getItem('favorites'));
-//   if (token === token2?.token) {
-//     return token2?.data;
-//   }
-//   return null;
-// };
+const token = localStorage.getItem('token');
+const [{ data, token: token2 }] = JSON.parse(localStorage.getItem('favorites')) || [
+  {
+    data: [],
+    token: '',
+  },
+];
+const check = () => {
+  if (token === token2) {
+    return data;
+  }
+  return null;
+};
 
 const initialState = {
-  requests: JSON.parse(localStorage.getItem('favorites')) || [],
+  requests: check() || [],
   choice: null,
 };
 
@@ -29,23 +34,22 @@ export const favoriteSlice = createSlice({
         );
       }
       state.requests.push({ ...action.payload });
-      localStorage.setItem('favorites', JSON.stringify(state.requests));
     },
     deleteFavoriteAction(state, action) {
       state.requests = state.requests.filter((item) => item.id !== action.payload.id);
-      localStorage.setItem('favorites', JSON.stringify(state.requests));
-      console.log('delete');
     },
     updateFavoriteAction(state, action) {
       const { id } = action.payload;
       const current = state.requests.find((item) => item.id === id);
-      // state.requests = { ...current, ...action.payload };
-
       current.request = action.payload.request;
       current.name = action.payload.name;
       current.sort = action.payload.sort;
       current.count = action.payload.count;
-      localStorage.setItem('favorites', JSON.stringify(state.requests));
+
+      // localStorage.setItem(
+      //   'favorites',
+      //   JSON.stringify({ token: localStorage.getItem('token'), data: state.requests }),
+      // );
     },
   },
 });

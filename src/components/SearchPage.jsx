@@ -15,8 +15,8 @@ export const SearchPage = () => {
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
 
-  const { choice } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
-  // localStorage.setItem('favorites', JSON.stringify(requests));
+  const { choice, requests } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
+
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
       searchText,
@@ -31,16 +31,17 @@ export const SearchPage = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem(
+      'favorites',
+      JSON.stringify([{ token: localStorage.getItem('token'), data: requests }]),
+    );
     if (choice) {
       setSearchText(choice?.request);
       setSkip(false);
       // localStorage.setItem('choice');
     }
-    // isSuccess && setSkip(true);
-
-    // isSuccess && setSkip(true);
     <Search />;
-  }, [choice]);
+  }, [choice, requests]);
 
   const suffix =
     searchText && saveRequest ? (
