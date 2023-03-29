@@ -3,7 +3,7 @@ import { SaveRequest } from './SaveRequest';
 
 export const FavoritesPage = () => {
   const { requests } = useSelector((state) => state.favorites);
-  localStorage.setItem('favorites', JSON.stringify(requests));
+  // localStorage.setItem('favorites', JSON.stringify(requests));
 
   return (
     <div className="favorites _container">

@@ -5,21 +5,22 @@ import { useEffect, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
+import { useSelector } from 'react-redux';
 
 const { Search } = Input;
 
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const choice = JSON.parse(localStorage.getItem('choice')) || null;
-  // const { count, sort } = JSON.parse(localStorage.getItem('choice'));
-  // console.log(count, sort);
   const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
+
+  const { choice } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
+  // localStorage.setItem('favorites', JSON.stringify(requests));
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
       searchText,
-      limit: choice?.count || 15,
+      limit: choice?.count || 12,
       order: choice?.sort || 'relevance',
     },
     { skip },
@@ -31,10 +32,13 @@ export const SearchPage = () => {
 
   useEffect(() => {
     if (choice) {
-      setSearchText(choice.request);
+      setSearchText(choice?.request);
       setSkip(false);
-      // localStorage.removeItem('choice');
+      // localStorage.setItem('choice');
     }
+    // isSuccess && setSkip(true);
+
+    // isSuccess && setSkip(true);
     <Search />;
   }, [choice]);
 
@@ -66,16 +70,14 @@ export const SearchPage = () => {
   const content = isSuccess ? 'content2 _container' : 'content _container';
   const searchInput = isSuccess ? '' : 'content__input';
 
-  const onSearch = (value) => {
+  const onSearch = () => {
     setSkip(false);
-    localStorage.removeItem('choice');
+    // isSuccess && setSkip(true);
     console.log(data);
-    console.log(value);
   };
 
   return (
     <div className={content}>
-      {/* <Space direction="vertical" size="large"> */}
       <h1>Поиск видео</h1>
       <Search
         placeholder="Что хотите посмотреть?"
@@ -102,7 +104,6 @@ export const SearchPage = () => {
         searchText={searchText}
         setSaveRequest={setSaveRequest}
       />
-      {/* </Space> */}
     </div>
   );
 };

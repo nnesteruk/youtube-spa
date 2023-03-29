@@ -1,6 +1,6 @@
 import { Modal, Button, Form, Input, Select, Space, InputNumber, Slider } from 'antd';
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addFavoriteAction } from '../../redux/favorite/slice';
 
 const { Option } = Select;
@@ -10,6 +10,7 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
   const [count, setCount] = useState(0); //!Количество видео
   const dispatch = useDispatch();
   const formRef = useRef(null);
+  const { requests } = useSelector((state) => state.favorites);
 
   const onChange = (number) => {
     setCount(number);
@@ -17,7 +18,6 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
 
   const addRequest = (favorite) => dispatch(addFavoriteAction(favorite));
   const handleSave = ({ request, name, sort }) => {
-    console.log(request);
     addRequest({
       id: Date.now(),
       request,

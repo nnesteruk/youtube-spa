@@ -16,7 +16,7 @@ export const Wrap = () => {
             <img className="header__icon" src={icon} alt="Icon" />
           </div>
           <Menu
-            className="header__menu"
+            // className="header__menu"
             theme="light"
             mode="horizontal"
             defaultSelectedKeys={['1']}
@@ -37,7 +37,8 @@ export const Wrap = () => {
                   break;
                 case '3':
                   navigate('/');
-                  localStorage.clear();
+                  localStorage.removeItem('token');
+                  // localStorage.clear();
                   break;
                 default:
                   console.log('Unknown navigation');

@@ -18,9 +18,6 @@ export const youtubeApi = createApi({
       query: (arg) => {
         const { searchText, limit, order } = arg;
         return {
-          // url: `/search?part=snippet${limit && `&maxResults=${limit}`}${
-          //   order && `&order=${order}`
-          // }${searchText && `&q=${searchText}`}&key=${process.env.REACT_APP_API_KEY} `,
           url: `/search`,
           params: {
             key: `${process.env.REACT_APP_API_KEY}`,
@@ -28,6 +25,7 @@ export const youtubeApi = createApi({
             maxResults: limit,
             q: searchText,
             order,
+            type: 'video',
           },
         };
       },
