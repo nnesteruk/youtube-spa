@@ -1,7 +1,7 @@
 import { Input, Tooltip } from 'antd';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
@@ -17,8 +17,8 @@ export const SearchPage = () => {
   const [skip, setSkip] = useState(true);
   const dispatch = useDispatch();
 
-  const { choice, requests, user } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
-  // console.log(user);
+  const { choice, requests, localUser, users } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
+  useMemo(() => console.log(users), [users]);
 
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
@@ -41,7 +41,7 @@ export const SearchPage = () => {
         console.log('create ls'),
       );
     } else {
-      dispatch(addUsersAction(user));
+      dispatch(addUsersAction(localUser));
     }
     if (choice) {
       setSearchText(choice?.request);
@@ -49,7 +49,7 @@ export const SearchPage = () => {
       // localStorage.setItem('choice');
     }
     <Search />;
-  }, [choice, user]);
+  }, [choice, localUser]);
 
   const suffix =
     searchText && saveRequest ? (

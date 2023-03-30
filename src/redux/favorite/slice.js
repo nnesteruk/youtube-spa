@@ -15,7 +15,7 @@ const check = () => {
 const initialState = {
   requests: check() || [],
   choice: null,
-  user: { token, data: [] },
+  localUser: { token, data: [] },
   users: favorites || [],
 };
 
@@ -31,7 +31,7 @@ export const favoriteSlice = createSlice({
         );
       }
       state.requests.push({ ...action.payload });
-      state.user.data = state.requests;
+      state.localUser.data = state.requests;
     },
     deleteFavoriteAction(state, action) {
       state.requests = state.requests.filter((item) => item.id !== action.payload.id);
