@@ -1,7 +1,7 @@
 import { Input, Tooltip } from 'antd';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
@@ -17,7 +17,21 @@ export const SearchPage = () => {
   const [skip, setSkip] = useState(true);
   const dispatch = useDispatch();
 
-  const { choice, requests, localUser, users } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
+  const { choice, localUser, users } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
+
+  useEffect(() => {
+    if (!localStorage.getItem('favorites')) {
+      localStorage.setItem('favorites', JSON.stringify(users), console.log('create ls'));
+    }
+    if (choice) {
+      setSearchText(choice?.request);
+      setSkip(false);
+      // localStorage.setItem('choice');
+    }
+    <Search />;
+  }, [choice, users]);
+
+  useMemo(() => dispatch(addUsersAction(localUser)), [localUser, dispatch]);
 
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
@@ -31,20 +45,6 @@ export const SearchPage = () => {
   const heartClickHandler = () => {
     setIsModalOpen(true);
   };
-
-  useEffect(() => {
-    if (!localStorage.getItem('favorites')) {
-      localStorage.setItem('favorites', JSON.stringify(users), console.log('create ls'));
-    } else {
-      dispatch(addUsersAction(localUser));
-    }
-    if (choice) {
-      setSearchText(choice?.request);
-      setSkip(false);
-      // localStorage.setItem('choice');
-    }
-    <Search />;
-  }, [choice, localUser, users, dispatch]);
 
   const suffix =
     searchText && saveRequest ? (

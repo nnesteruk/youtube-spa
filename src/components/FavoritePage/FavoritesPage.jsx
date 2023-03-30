@@ -1,8 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUsersAction } from '../../redux/favorite/slice';
 import { SaveRequest } from './SaveRequest';
 
 export const FavoritesPage = () => {
-  const { requests } = useSelector((state) => state.favorites);
+  const { requests, localUser } = useSelector((state) => state.favorites);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addUsersAction(localUser));
+  }, [localUser, dispatch]);
   return (
     <div className="favorites _container">
       <h1 className="favorites__title">Избранное</h1>

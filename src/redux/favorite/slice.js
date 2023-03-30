@@ -35,6 +35,7 @@ export const favoriteSlice = createSlice({
     },
     deleteFavoriteAction(state, action) {
       state.requests = state.requests.filter((item) => item.id !== action.payload.id);
+      state.localUser.data = state.requests;
     },
     updateFavoriteAction(state, action) {
       const { id } = action.payload;
@@ -43,6 +44,7 @@ export const favoriteSlice = createSlice({
       current.name = action.payload.name;
       current.sort = action.payload.sort;
       current.count = action.payload.count;
+      state.localUser.data = [...state.requests];
 
       // localStorage.setItem(
       //   'favorites',
@@ -56,8 +58,8 @@ export const favoriteSlice = createSlice({
 
     addUsersAction(state, action) {
       const currentUser = state.users.find((item) => item?.token === action.payload.token);
-      const result = [...state.users, { ...currentUser, ...action.payload }];
-      localStorage.setItem('favorites', JSON.stringify(result));
+      const result = [...state.users, { ...currentUser }];
+      localStorage.setItem('favorites', JSON.stringify([...result]));
     },
   },
 });
