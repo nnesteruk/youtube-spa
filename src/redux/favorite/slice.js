@@ -7,7 +7,6 @@ const saved = favorites?.find((item) => item.token === token);
 const check = () => {
   if (saved) {
     const { data } = saved;
-    console.log(data);
     return data;
   }
   return null;
@@ -32,7 +31,7 @@ export const favoriteSlice = createSlice({
         );
       }
       state.requests.push({ ...action.payload });
-      state.user.data.push({ ...action.payload });
+      state.user.data = state.requests;
     },
     deleteFavoriteAction(state, action) {
       state.requests = state.requests.filter((item) => item.id !== action.payload.id);
@@ -55,12 +54,21 @@ export const favoriteSlice = createSlice({
       state.choice = { ...action.payload };
     },
 
-    addUserAction(state, action) {
-      state.user.push();
+    addUsersAction(state, action) {
+      const currentUser = state.users.find((item) => item.token === action.payload.token);
+      if (!currentUser) {
+        state.users.push({ ...action.payload });
+      }
+      localStorage.setItem('favorites', JSON.stringify(state.users));
     },
   },
 });
 
-export const { addFavoriteAction, deleteFavoriteAction, updateFavoriteAction, addChoiceAction } =
-  favoriteSlice.actions;
+export const {
+  addFavoriteAction,
+  deleteFavoriteAction,
+  updateFavoriteAction,
+  addChoiceAction,
+  addUsersAction,
+} = favoriteSlice.actions;
 export default favoriteSlice.reducer;

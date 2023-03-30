@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUsersAction } from '../redux/favorite/slice';
 
 const { Search } = Input;
 
@@ -14,9 +15,10 @@ export const SearchPage = () => {
   const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
+  const dispatch = useDispatch();
 
   const { choice, requests, user } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
-  console.log(user);
+  // console.log(user);
 
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
@@ -39,16 +41,15 @@ export const SearchPage = () => {
         console.log('create ls'),
       );
     } else {
-      console.log('есть');
+      dispatch(addUsersAction(user));
     }
-
     if (choice) {
       setSearchText(choice?.request);
       setSkip(false);
       // localStorage.setItem('choice');
     }
     <Search />;
-  }, [choice, requests]);
+  }, [choice, user]);
 
   const suffix =
     searchText && saveRequest ? (
