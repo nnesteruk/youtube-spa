@@ -55,11 +55,9 @@ export const favoriteSlice = createSlice({
     },
 
     addUsersAction(state, action) {
-      const currentUser = state.users.find((item) => item.token === action.payload.token);
-      if (!currentUser) {
-        state.users.push({ ...action.payload });
-      }
-      localStorage.setItem('favorites', JSON.stringify(state.users));
+      const currentUser = state.users.find((item) => item?.token === action.payload.token);
+      const result = [...state.users, { ...currentUser, ...action.payload }];
+      localStorage.setItem('favorites', JSON.stringify(result));
     },
   },
 });

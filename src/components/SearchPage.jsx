@@ -1,7 +1,7 @@
 import { Input, Tooltip } from 'antd';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
@@ -18,7 +18,6 @@ export const SearchPage = () => {
   const dispatch = useDispatch();
 
   const { choice, requests, localUser, users } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
-  useMemo(() => console.log(users), [users]);
 
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
@@ -35,11 +34,7 @@ export const SearchPage = () => {
 
   useEffect(() => {
     if (!localStorage.getItem('favorites')) {
-      localStorage.setItem(
-        'favorites',
-        JSON.stringify([{ token: localStorage.getItem('token'), data: requests }]),
-        console.log('create ls'),
-      );
+      localStorage.setItem('favorites', JSON.stringify(users), console.log('create ls'));
     } else {
       dispatch(addUsersAction(localUser));
     }
@@ -49,7 +44,7 @@ export const SearchPage = () => {
       // localStorage.setItem('choice');
     }
     <Search />;
-  }, [choice, localUser]);
+  }, [choice, localUser, users, dispatch]);
 
   const suffix =
     searchText && saveRequest ? (
