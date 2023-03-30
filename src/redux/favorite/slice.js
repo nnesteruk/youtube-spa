@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const token = localStorage.getItem('token');
-const [{ data, token: token2 }] = JSON.parse(localStorage.getItem('favorites')) || [
-  {
-    data: [],
-    token: '',
-  },
-];
+const favorites = JSON.parse(localStorage.getItem('favorites'));
+const saved = favorites?.find((item) => item.token === token);
+
 const check = () => {
-  if (token === token2) {
+  if (saved) {
+    const { data } = saved;
+    console.log(data);
     return data;
   }
   return null;
@@ -17,15 +16,14 @@ const check = () => {
 const initialState = {
   requests: check() || [],
   choice: null,
+  user: { token, data: [] },
+  users: favorites || [],
 };
 
 export const favoriteSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    addChoiceAction(state, action) {
-      state.choice = { ...action.payload };
-    },
     addFavoriteAction(state, action) {
       const current = state.requests.find((item) => item.name === action.payload.name);
       if (current) {
@@ -34,6 +32,7 @@ export const favoriteSlice = createSlice({
         );
       }
       state.requests.push({ ...action.payload });
+      state.user.data.push({ ...action.payload });
     },
     deleteFavoriteAction(state, action) {
       state.requests = state.requests.filter((item) => item.id !== action.payload.id);
@@ -50,6 +49,14 @@ export const favoriteSlice = createSlice({
       //   'favorites',
       //   JSON.stringify({ token: localStorage.getItem('token'), data: state.requests }),
       // );
+    },
+
+    addChoiceAction(state, action) {
+      state.choice = { ...action.payload };
+    },
+
+    addUserAction(state, action) {
+      state.user.push();
     },
   },
 });
