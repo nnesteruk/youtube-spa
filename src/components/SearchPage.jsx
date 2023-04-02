@@ -1,12 +1,11 @@
 import { Input, Tooltip } from 'antd';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUsersAction } from '../redux/favorite/slice';
+import { useSelector } from 'react-redux';
 
 const { Search } = Input;
 
@@ -15,23 +14,35 @@ export const SearchPage = () => {
   const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
-  const dispatch = useDispatch();
 
-  const { choice, localUser, users } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
+  const { choice, requests } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
+
+  const checkUser = () => {
+    const token = localStorage.getItem('token');
+    const users = JSON.parse(localStorage.getItem('saved')) || [];
+    const currentUser = users.find((user) => user.token === token);
+    if (!currentUser) {
+      return localStorage.setItem('saved', JSON.stringify([...users, { token, data: [] }]));
+      // const user = JSON.parse(localStorage.getItem('saved'));
+      // const current = user.find((user) => user.token === token);
+      // current.data = [...requests];
+      // return localStorage.setItem('saved', JSON.stringify([...user]));
+    }
+    currentUser.data = [...requests];
+    return localStorage.setItem('saved', JSON.stringify([...users]));
+  };
 
   useEffect(() => {
-    if (!localStorage.getItem('favorites')) {
-      localStorage.setItem('favorites', JSON.stringify(users), console.log('create ls'));
-    }
+    checkUser();
     if (choice) {
       setSearchText(choice?.request);
-      setSkip(false);
+      setSkip(!skip);
       // localStorage.setItem('choice');
     }
-    <Search />;
-  }, [choice, users]);
-
-  useMemo(() => dispatch(addUsersAction(localUser)), [localUser, dispatch]);
+    return () => {
+      setSkip(true);
+    };
+  }, []);
 
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
@@ -70,7 +81,8 @@ export const SearchPage = () => {
       <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
     );
 
-  const heart = isSuccess ? suffix : null;
+  // const heart = isSuccess ? suffix : null;
+  const heart = suffix;
   const content = isSuccess ? 'content2 _container' : 'content _container';
   const searchInput = isSuccess ? '' : 'content__input';
 

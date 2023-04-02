@@ -24,8 +24,6 @@ export const ChangeWindow = ({ isModalOpen, setIsModalOpen, item }) => {
       sort,
       count,
     });
-    // formRef.current?.resetFields();
-    // setCount(1);
     setIsModalOpen(false);
   };
   const handleNotChange = () => {

@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const token = localStorage.getItem('token');
-const favorites = JSON.parse(localStorage.getItem('favorites'));
-const saved = favorites?.find((item) => item.token === token);
+const saved = JSON.parse(localStorage.getItem('saved')) || [];
+const currentUser = saved.find((item) => item.token === token);
 
 const check = () => {
-  if (saved) {
-    const { data } = saved;
+  if (currentUser) {
+    const { data } = currentUser;
     return data;
   }
   return null;
@@ -15,8 +15,6 @@ const check = () => {
 const initialState = {
   requests: check() || [],
   choice: null,
-  localUser: { token, data: [] },
-  users: favorites || [],
 };
 
 export const favoriteSlice = createSlice({
@@ -31,11 +29,9 @@ export const favoriteSlice = createSlice({
         );
       }
       state.requests.push({ ...action.payload });
-      state.localUser.data = state.requests;
     },
     deleteFavoriteAction(state, action) {
       state.requests = state.requests.filter((item) => item.id !== action.payload.id);
-      state.localUser.data = state.requests;
     },
     updateFavoriteAction(state, action) {
       const { id } = action.payload;
@@ -44,7 +40,6 @@ export const favoriteSlice = createSlice({
       current.name = action.payload.name;
       current.sort = action.payload.sort;
       current.count = action.payload.count;
-      state.localUser.data = [...state.requests];
 
       // localStorage.setItem(
       //   'favorites',
@@ -57,9 +52,10 @@ export const favoriteSlice = createSlice({
     },
 
     addUsersAction(state, action) {
-      const currentUser = state.users.find((item) => item?.token === action.payload.token);
-      const result = [...state.users, { ...currentUser }];
-      localStorage.setItem('favorites', JSON.stringify([...result]));
+      const users = JSON.parse(localStorage.getItem('saved')) || [];
+      const currentUser = users.find((user) => user.token === token);
+      currentUser.data = [...state.requests];
+      localStorage.setItem('saved', JSON.stringify([...users]));
     },
   },
 });

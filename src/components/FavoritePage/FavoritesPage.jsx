@@ -4,11 +4,11 @@ import { addUsersAction } from '../../redux/favorite/slice';
 import { SaveRequest } from './SaveRequest';
 
 export const FavoritesPage = () => {
-  const { requests, localUser } = useSelector((state) => state.favorites);
+  const { requests } = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(addUsersAction(localUser));
-  }, [localUser, dispatch]);
+    dispatch(addUsersAction());
+  }, [requests]);
   return (
     <div className="favorites _container">
       <h1 className="favorites__title">Избранное</h1>
