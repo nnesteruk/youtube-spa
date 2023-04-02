@@ -6,8 +6,8 @@ const currentUser = saved.find((item) => item.token === token);
 
 const check = () => {
   if (currentUser) {
-    const { data } = currentUser;
-    return data;
+    // const { data } = currentUser;
+    return currentUser?.data;
   }
   return null;
 };

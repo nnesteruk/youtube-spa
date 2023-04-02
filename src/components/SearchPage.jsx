@@ -1,9 +1,9 @@
 import { Input, Tooltip } from 'antd';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
 import { useSelector } from 'react-redux';
 
@@ -15,34 +15,20 @@ export const SearchPage = () => {
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
 
-  const { choice, requests } = useSelector((state) => state.favorites); //? Нужно ли тут сохранять запросы в ls
-
-  const checkUser = () => {
-    const token = localStorage.getItem('token');
-    const users = JSON.parse(localStorage.getItem('saved')) || [];
-    const currentUser = users.find((user) => user.token === token);
-    if (!currentUser) {
-      return localStorage.setItem('saved', JSON.stringify([...users, { token, data: [] }]));
-      // const user = JSON.parse(localStorage.getItem('saved'));
-      // const current = user.find((user) => user.token === token);
-      // current.data = [...requests];
-      // return localStorage.setItem('saved', JSON.stringify([...user]));
-    }
-    currentUser.data = [...requests];
-    return localStorage.setItem('saved', JSON.stringify([...users]));
-  };
+  const { choice, requests } = useSelector((state) => state.favorites);
+  const checkUser = useOutletContext();
 
   useEffect(() => {
     checkUser();
     if (choice) {
       setSearchText(choice?.request);
       setSkip(!skip);
-      // localStorage.setItem('choice');
     }
     return () => {
-      setSkip(true);
+      setSkip(!skip);
+      localStorage.removeItem('choice');
     };
-  }, []);
+  }, [choice, requests]);
 
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
@@ -58,7 +44,7 @@ export const SearchPage = () => {
   };
 
   const suffix =
-    searchText && saveRequest ? (
+    searchText && (saveRequest || choice) ? (
       <Tooltip
         title={() => (
           <div className="tooltip">
@@ -74,15 +60,17 @@ export const SearchPage = () => {
           padding: '14px',
         }}
         placement="bottom"
-        open>
+        mouseLeaveDelay={0.5}
+        defaultOpen
+        onChange={(open) => open}>
         <HeartTwoTone className="icon-heart" onClick={() => heartClickHandler()} />
       </Tooltip>
     ) : (
       <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
     );
 
-  // const heart = isSuccess ? suffix : null;
-  const heart = suffix;
+  const heart = isSuccess ? suffix : null;
+  // const heart = suffix;
   const content = isSuccess ? 'content2 _container' : 'content _container';
   const searchInput = isSuccess ? '' : 'content__input';
 
