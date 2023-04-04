@@ -2,18 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const token = localStorage.getItem('token');
 const saved = JSON.parse(localStorage.getItem('saved')) || [];
-const currentUser = saved.find((item) => item.token === token);
 
 const check = () => {
-  if (currentUser) {
-    // const { data } = currentUser;
-    return currentUser?.data;
-  }
-  return null;
+  const currentUser = saved.find(
+    (item) => console.log(item.token.slice(0, item.token.indexOf('.'))) === token,
+  );
+  return currentUser ? currentUser.data : [];
 };
 
 const initialState = {
-  requests: check() || [],
+  requests: check(),
   choice: null,
 };
 
@@ -40,11 +38,6 @@ export const favoriteSlice = createSlice({
       current.name = action.payload.name;
       current.sort = action.payload.sort;
       current.count = action.payload.count;
-
-      // localStorage.setItem(
-      //   'favorites',
-      //   JSON.stringify({ token: localStorage.getItem('token'), data: state.requests }),
-      // );
     },
 
     addChoiceAction(state, action) {

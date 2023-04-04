@@ -8,6 +8,7 @@ export const FavoritesPage = () => {
   const { requests } = useSelector((state) => state.favorites);
   const checkUser = useOutletContext();
   // const dispatch = useDispatch();
+  console.log(requests);
 
   useEffect(() => {
     checkUser();

@@ -1,10 +1,13 @@
 .registration {
   border: 2px solid;
-  margin: 120px auto;
   width: 400px;
   padding-top: 30px;
   border-radius: 10px;
   background-color: rgb(244, 242, 242);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   &__title {
     font-weight: normal;

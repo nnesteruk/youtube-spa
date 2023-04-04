@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link, useOutletContext } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addChoiceAction } from '../redux/favorite/slice';
 
 const { Search } = Input;
 
@@ -14,21 +15,25 @@ export const SearchPage = () => {
   const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
+  const [openTootip, setOpenTooltip] = useState(true);
+  const dispatch = useDispatch();
 
-  const { choice, requests } = useSelector((state) => state.favorites);
+  const { choice } = useSelector((state) => state.favorites);
   const checkUser = useOutletContext();
+  console.log(openTootip);
 
   useEffect(() => {
     checkUser();
-    if (choice) {
+    if (choice?.request) {
       setSearchText(choice?.request);
       setSkip(!skip);
+      setOpenTooltip(!openTootip);
     }
     return () => {
-      setSkip(!skip);
       localStorage.removeItem('choice');
+      // dispatch(addChoiceAction(null));
     };
-  }, [choice, requests]);
+  }, []);
 
   const { data, isSuccess } = youtubeApi.useGetListQuery(
     {
@@ -38,6 +43,10 @@ export const SearchPage = () => {
     },
     { skip },
   );
+  const handleOnChange = (event) => {
+    setSearchText(event.target.value);
+    setSkip(true);
+  };
 
   const heartClickHandler = () => {
     setIsModalOpen(true);
@@ -61,7 +70,7 @@ export const SearchPage = () => {
         }}
         placement="bottom"
         mouseLeaveDelay={0.5}
-        defaultOpen
+        defaultOpen={openTootip}
         onChange={(open) => open}>
         <HeartTwoTone className="icon-heart" onClick={() => heartClickHandler()} />
       </Tooltip>
@@ -69,13 +78,13 @@ export const SearchPage = () => {
       <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
     );
 
-  const heart = isSuccess ? suffix : null;
-  // const heart = suffix;
+  // const heart = isSuccess ? suffix : null;
+  const heart = suffix;
   const content = isSuccess ? 'content2 _container' : 'content _container';
   const searchInput = isSuccess ? '' : 'content__input';
 
   const onSearch = () => {
-    setSkip(false);
+    setSkip(!skip);
     console.log(data);
   };
 
@@ -88,7 +97,7 @@ export const SearchPage = () => {
         size="large"
         value={searchText}
         className={searchInput}
-        onChange={(e) => setSearchText(e.target.value)}
+        onChange={(e) => handleOnChange(e)}
         suffix={heart}
         onSearch={() => onSearch()}
       />

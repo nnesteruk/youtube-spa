@@ -1,5 +1,5 @@
 import { Modal, Button, Form, Input, Select, Space, InputNumber, Slider } from 'antd';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addFavoriteAction } from '../../redux/favorite/slice';
 
@@ -14,6 +14,9 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
   const onChange = (number) => {
     setCount(number);
   };
+  useEffect(() => {
+    formRef.current?.resetFields();
+  }, []);
 
   const addRequest = (favorite) => dispatch(addFavoriteAction(favorite));
   const handleSave = ({ request, name, sort }) => {

@@ -12,15 +12,15 @@ export const Wrap = () => {
   const { requests } = useSelector((state) => state.favorites);
 
   const checkUser = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage
+      .getItem('token')
+      .slice(0, localStorage.getItem('token').indexOf('.'));
     const users = JSON.parse(localStorage.getItem('saved')) || [];
-    const currentUser = users.find((user) => user.token === token);
+    const currentUser = users.find(
+      (user) => user.token.slice(0, user.token.indexOf('.')) === token,
+    );
     if (!currentUser) {
       return localStorage.setItem('saved', JSON.stringify([...users, { token, data: [] }]));
-      // const user = JSON.parse(localStorage.getItem('saved'));
-      // const current = user.find((user) => user.token === token);
-      // current.data = [...requests];
-      // return localStorage.setItem('saved', JSON.stringify([...user]));
     }
     currentUser.data = [...requests];
     return localStorage.setItem('saved', JSON.stringify([...users]));
@@ -34,7 +34,6 @@ export const Wrap = () => {
             <img className="header__icon" src={icon} alt="Icon" />
           </div>
           <Menu
-            // className="header__menu"
             theme="light"
             mode="horizontal"
             defaultSelectedKeys={['1']}
@@ -55,8 +54,8 @@ export const Wrap = () => {
                   break;
                 case '3':
                   navigate('/');
-                  localStorage.removeItem('token');
-                  // localStorage.clear();
+                  // localStorage.removeItem('token');
+                  localStorage.clear();
                   break;
                 default:
                   console.log('Unknown navigation');

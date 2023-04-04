@@ -7,7 +7,6 @@ export const youtubeApi = createApi({
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       if (token) {
-        // headers.set('Authorization', `Bearer ${token}`);
         headers.set('Accept', 'application/json');
       }
       return headers;
