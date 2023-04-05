@@ -2,23 +2,18 @@ import { UnorderedListOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 
 export const VideosBlock = ({ data, isSuccess, searchText, sort }) => {
-  const videos = data?.items;
+  const videos = data?.items || [];
   const { totalResults } = isSuccess && data?.pageInfo;
-  const [id] = videos.map((item) => item);
-  console.log(id);
   const [isList, setIsList] = useState(true);
   const listStyleHandlle = () => {
-    console.log('List');
     setIsList(true);
   };
   const cardStyleHandlle = () => {
-    console.log('List');
     setIsList(false);
   };
 
   const cardStyle = 'icon-block ' + (isList ? 'main' : '');
   const listStyle = 'icon-list ' + (isList ? '' : 'main');
-  console.log(isList);
 
   return (
     <div className="videos ">
@@ -64,16 +59,6 @@ export const VideosBlock = ({ data, isSuccess, searchText, sort }) => {
                   rel="noreferrer">
                   <img className="videos__img2" src={item.snippet.thumbnails.high.url} alt="" />
                 </a>
-                {/* <div>
-                  <iframe
-                    width="100%"
-                    height="auto"
-                    src={`https://www.youtube.com/embed/${item.id.videoId}`}
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>
-                </div> */}
                 <div className="videos__text2">
                   <h2>{item.snippet.title}</h2>
                   <h4> {item.snippet.channelTitle}</h4>

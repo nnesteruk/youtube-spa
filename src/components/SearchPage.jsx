@@ -7,6 +7,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
 import { useDispatch, useSelector } from 'react-redux';
 import { addChoiceAction } from '../redux/favorite/slice';
+import { debounce } from 'lodash';
 
 const { Search } = Input;
 
@@ -18,20 +19,19 @@ export const SearchPage = () => {
   const [openTootip, setOpenTooltip] = useState(true);
   const dispatch = useDispatch();
 
-  const { choice } = useSelector((state) => state.favorites);
+  const { choice, requests } = useSelector((state) => state.favorites);
   const checkUser = useOutletContext();
-  console.log(openTootip);
 
   useEffect(() => {
-    checkUser();
     if (choice?.request) {
       setSearchText(choice?.request);
       setSkip(!skip);
       setOpenTooltip(!openTootip);
+      console.log(skip);
+      // localStorage.setItem('choice', JSON.stringify(choice));
     }
     return () => {
       localStorage.removeItem('choice');
-      // dispatch(addChoiceAction(null));
     };
   }, []);
 
@@ -43,6 +43,27 @@ export const SearchPage = () => {
     },
     { skip },
   );
+
+  useEffect(() => {
+    // debounce;
+    // checkUser();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      'request',
+      JSON.stringify({
+        searchText,
+        limit: choice?.count || 12,
+        order: choice?.sort || 'relevance',
+      }),
+    );
+    // debounce(data)
+  }, [data]);
+
+  const request = JSON.parse(localStorage.getItem('request'));
+  console.log(request);
+
   const handleOnChange = (event) => {
     setSearchText(event.target.value);
     setSkip(true);
@@ -95,7 +116,7 @@ export const SearchPage = () => {
         placeholder="Что хотите посмотреть?"
         enterButton="Найти"
         size="large"
-        value={searchText}
+        value={searchText || request.searchText}
         className={searchInput}
         onChange={(e) => handleOnChange(e)}
         suffix={heart}

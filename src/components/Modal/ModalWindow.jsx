@@ -33,6 +33,7 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
     setSaveRequest(true);
   };
   const handleNotSave = () => {
+    formRef.current?.resetFields();
     setIsModalOpen(false);
   };
 
@@ -56,12 +57,7 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
           ref={formRef}>
           <label>Запрос</label>
           <Form.Item name="request" initialValue={searchText}>
-            <Input
-              className="input"
-              placeholder="input placeholder"
-              // disabled={typeof requestStatus === 'undefined' ? true : false}
-              disabled={true}
-            />
+            <Input className="input" placeholder="input placeholder" disabled={true} />
           </Form.Item>
 
           <label className="required">Название</label>

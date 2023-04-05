@@ -4,11 +4,14 @@ const token = localStorage.getItem('token');
 const saved = JSON.parse(localStorage.getItem('saved')) || [];
 
 const check = () => {
-  const currentUser = saved.find(
-    (item) => console.log(item.token.slice(0, item.token.indexOf('.'))) === token,
-  );
+  const currentUser = saved.find((item) => item.token === token.slice(0, token.indexOf('.'))); //? для пользователей (через массив)
   return currentUser ? currentUser.data : [];
 };
+
+// const check = () => {
+// const currentUser = saved.find((item) => item.token === token.slice(0, token.indexOf('.')));
+// return saved.token === token.slice(0, token.indexOf('.')) ? saved.data : []; //? для пользователей (через объект)
+// };
 
 const initialState = {
   requests: check(),
@@ -44,11 +47,9 @@ export const favoriteSlice = createSlice({
       state.choice = { ...action.payload };
     },
 
-    addUsersAction(state, action) {
-      const users = JSON.parse(localStorage.getItem('saved')) || [];
-      const currentUser = users.find((user) => user.token === token);
-      currentUser.data = [...state.requests];
-      localStorage.setItem('saved', JSON.stringify([...users]));
+    clearRequestAction(state, action) {
+      state.requests = [];
+      state.choice = null;
     },
   },
 });
@@ -58,6 +59,6 @@ export const {
   deleteFavoriteAction,
   updateFavoriteAction,
   addChoiceAction,
-  addUsersAction,
+  clearRequestAction,
 } = favoriteSlice.actions;
 export default favoriteSlice.reducer;

@@ -2,29 +2,50 @@ import { Layout, Menu } from 'antd';
 import React from 'react';
 import icon from '../assets/img/youtube.ico';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearRequestAction } from '../redux/favorite/slice';
 
 const { Header, Content } = Layout;
 
 export const Wrap = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { requests } = useSelector((state) => state.favorites);
 
   const checkUser = () => {
-    const token = localStorage
-      .getItem('token')
-      .slice(0, localStorage.getItem('token').indexOf('.'));
+    const token = localStorage.getItem('token');
+    const partialToken = token.slice(0, token.indexOf('.'));
     const users = JSON.parse(localStorage.getItem('saved')) || [];
-    const currentUser = users.find(
-      (user) => user.token.slice(0, user.token.indexOf('.')) === token,
-    );
+    const currentUser = users.find((user) => user.token === partialToken); //? для пользователей(массив)
+
     if (!currentUser) {
-      return localStorage.setItem('saved', JSON.stringify([...users, { token, data: [] }]));
+      return localStorage.setItem(
+        'saved',
+        JSON.stringify([...users, { token: partialToken, data: [] }]),
+      );
     }
+
     currentUser.data = [...requests];
     return localStorage.setItem('saved', JSON.stringify([...users]));
   };
+
+  // const checkUser = () => {
+  //   const token = localStorage.getItem('token');
+  //   const partialToken = token.slice(0, token.indexOf('.'));
+  //   const users = JSON.parse(localStorage.getItem('saved')) || { token: partialToken, data: [] };
+  //   const currentUser = users.token === partialToken;
+
+  //   if (!currentUser) {
+  //     return localStorage.setItem(
+  //       'saved',
+  //       JSON.stringify([...users, { token: partialToken, data: [] }]), //? для пользователей (объект)
+  //     );
+  //   }
+
+  //   users.data = [...requests];
+  //   return localStorage.setItem('saved', JSON.stringify({ ...users }));
+  // };
 
   return (
     <Layout className="layout ">
@@ -54,8 +75,8 @@ export const Wrap = () => {
                   break;
                 case '3':
                   navigate('/');
-                  // localStorage.removeItem('token');
                   localStorage.clear();
+                  dispatch(clearRequestAction());
                   break;
                 default:
                   console.log('Unknown navigation');
