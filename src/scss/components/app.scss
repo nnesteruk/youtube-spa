@@ -76,6 +76,9 @@
     & span {
       color: white;
     }
+    @media (max-width: 376px) {
+      width: 100px;
+    }
   }
 }
 

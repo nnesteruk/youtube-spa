@@ -6,7 +6,6 @@ import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link, useOutletContext } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
 import { useSelector } from 'react-redux';
-import { Skeleton } from './VideosBlock/Skeleton';
 
 const { Search } = Input;
 
@@ -49,6 +48,7 @@ export const SearchPage = () => {
         order: choice?.sort || 'relevance',
       }),
     );
+    localStorage.setItem('data', JSON.stringify(data));
 
     if (request?.searchText) {
       setSearchText(request?.searchText);

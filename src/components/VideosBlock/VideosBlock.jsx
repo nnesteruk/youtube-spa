@@ -18,15 +18,14 @@ export const VideosBlock = ({ data, searchText, sort, isLoading }) => {
 
   return (
     <div className="videos">
-      {/* <div className="_container"> */}
       <div className="videos__header-block">
         <div className="videos__signature">
           <p>
             Видео по запросу <span>«{searchText}»</span>
           </p>
           <span className="videos__count">{totalResults}</span>
-          <span>Количество видео: {videos.length}</span>
-          <span>Сортировка: {sort}</span>
+          {/* <span>Количество видео: {videos.length}</span>
+          <span>Сортировка: {sort}</span> */}
         </div>
         <div>
           <UnorderedListOutlined className={listStyle} onClick={listStyleHandlle} />
@@ -34,49 +33,54 @@ export const VideosBlock = ({ data, searchText, sort, isLoading }) => {
         </div>
       </div>
       {!isList ? (
-        <div className="videos__content">
-          {videos.map((item) => (
-            <div key={item.etag} className="videos__block">
-              <div className="videos__img">
-                <a
-                  href={`https://www.youtube.com/watch?v=${item.id.videoId}`}
-                  target="_blank"
-                  rel="noreferrer">
-                  <img src={item.snippet.thumbnails.high.url} alt="" />
-                </a>
-              </div>
-              <div className="videos__text">
-                <h2>{item.snippet.title}</h2>
-                <h4> {item.snippet.channelTitle}</h4>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="videos__content2">
-          {videos.map((item) => (
-            <>
-              {isLoading ? (
-                <Skeleton />
-              ) : (
-                <div key={item.etag} className="videos__block2">
-                  <a
-                    href={`https://www.youtube.com/watch?v=${item.id.videoId}`}
-                    target="_blank"
-                    rel="noreferrer">
-                    <img className="videos__img2" src={item.snippet.thumbnails.high.url} alt="" />
-                  </a>
-                  <div className="videos__text2">
+        <div className="videos__block-content block-content">
+          <div className="block-content__row">
+            {videos.map((item) => (
+              <div key={item.etag} className="block-content__column">
+                <div className="block-content__block">
+                  <div className="block-content__img">
+                    <a
+                      href={`https://www.youtube.com/watch?v=${item.id.videoId}`}
+                      target="_blank"
+                      rel="noreferrer">
+                      <img src={item.snippet.thumbnails.high.url} alt="" />
+                    </a>
+                  </div>
+                  <div className="block-content__text">
                     <h2>{item.snippet.title}</h2>
                     <h4> {item.snippet.channelTitle}</h4>
                   </div>
                 </div>
-              )}
-            </>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
+      ) : (
+        <>
+          <div className="videos__list-content list-content">
+            <div className="list-content__row">
+              {videos.map((item) => (
+                <div key={item.etag} className="list-content__column">
+                  <div className="list-content__block">
+                    <div className="list-content__img">
+                      <a
+                        href={`https://www.youtube.com/watch?v=${item.id.videoId}`}
+                        target="_blank"
+                        rel="noreferrer">
+                        <img src={item.snippet.thumbnails.high.url} alt="" />
+                      </a>
+                    </div>
+                    <div className="list-content__text">
+                      <h2>{item.snippet.title}</h2>
+                      <h4> {item.snippet.channelTitle}</h4>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
       )}
-      {/* </div> */}
     </div>
   );
 };
