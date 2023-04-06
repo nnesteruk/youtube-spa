@@ -47,8 +47,18 @@ export const VideosBlock = ({ data, searchText, sort, isLoading }) => {
                     </a>
                   </div>
                   <div className="block-content__text">
-                    <h2>{item.snippet.title}</h2>
-                    <h4> {item.snippet.channelTitle}</h4>
+                    <a
+                      href={`https://www.youtube.com/watch?v=${item.id.videoId}`}
+                      target="_blank"
+                      rel="noreferrer">
+                      <h2>{item.snippet.title}</h2>
+                    </a>
+                    <a
+                      href={`https://www.youtube.com/watch?v=${item.id.videoId}`}
+                      target="_blank"
+                      rel="noreferrer">
+                      <h4> {item.snippet.channelTitle}</h4>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -71,8 +81,18 @@ export const VideosBlock = ({ data, searchText, sort, isLoading }) => {
                       </a>
                     </div>
                     <div className="list-content__text">
-                      <h2>{item.snippet.title}</h2>
-                      <h4> {item.snippet.channelTitle}</h4>
+                      <a
+                        href={`https://www.youtube.com/watch?v=${item.id.videoId}`}
+                        target="_blank"
+                        rel="noreferrer">
+                        <h2>{item.snippet.title}</h2>
+                      </a>
+                      <a
+                        href={`https://www.youtube.com/watch?v=${item.id.videoId}`}
+                        target="_blank"
+                        rel="noreferrer">
+                        <h4> {item.snippet.channelTitle}</h4>
+                      </a>
                     </div>
                   </div>
                 </div>
