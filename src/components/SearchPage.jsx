@@ -5,37 +5,22 @@ import { useEffect, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
 import { Link, useOutletContext } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
-import { useDispatch, useSelector } from 'react-redux';
-import { addChoiceAction } from '../redux/favorite/slice';
-import { debounce } from 'lodash';
+import { useSelector } from 'react-redux';
+import { Skeleton } from './VideosBlock/Skeleton';
 
 const { Search } = Input;
 
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const request = JSON.parse(localStorage.getItem('request'));
   const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
   const [openTootip, setOpenTooltip] = useState(true);
-  const dispatch = useDispatch();
 
-  const { choice, requests } = useSelector((state) => state.favorites);
+  const { choice } = useSelector((state) => state.favorites);
   const checkUser = useOutletContext();
-
-  useEffect(() => {
-    if (choice?.request) {
-      setSearchText(choice?.request);
-      setSkip(!skip);
-      setOpenTooltip(!openTootip);
-      console.log(skip);
-      // localStorage.setItem('choice', JSON.stringify(choice));
-    }
-    return () => {
-      localStorage.removeItem('choice');
-    };
-  }, []);
-
-  const { data, isSuccess } = youtubeApi.useGetListQuery(
+  const { data, isLoading } = youtubeApi.useGetListQuery(
     {
       searchText,
       limit: choice?.count || 12,
@@ -45,9 +30,15 @@ export const SearchPage = () => {
   );
 
   useEffect(() => {
-    // debounce;
-    // checkUser();
-  }, []);
+    if (choice?.request) {
+      setSearchText(choice?.request);
+      setSkip(false);
+      setOpenTooltip(!openTootip);
+    }
+    return () => {
+      localStorage.removeItem('choice');
+    };
+  }, [choice]);
 
   useEffect(() => {
     localStorage.setItem(
@@ -58,11 +49,16 @@ export const SearchPage = () => {
         order: choice?.sort || 'relevance',
       }),
     );
-    // debounce(data)
-  }, [data]);
 
-  const request = JSON.parse(localStorage.getItem('request'));
-  console.log(request);
+    if (request?.searchText) {
+      setSearchText(request?.searchText);
+      setSkip(false);
+    }
+    return () => {
+      localStorage.removeItem('request');
+      setSkip(true);
+    };
+  }, [data]);
 
   const handleOnChange = (event) => {
     setSearchText(event.target.value);
@@ -99,13 +95,12 @@ export const SearchPage = () => {
       <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
     );
 
-  // const heart = isSuccess ? suffix : null;
-  const heart = suffix;
-  const content = isSuccess ? 'content2 _container' : 'content _container';
-  const searchInput = isSuccess ? '' : 'content__input';
+  const heart = data ? suffix : null;
+  const content = data ? 'content2 _container' : 'content _container';
+  const searchInput = data ? '' : 'content__input';
 
   const onSearch = () => {
-    setSkip(!skip);
+    setSkip(false);
     console.log(data);
   };
 
@@ -116,19 +111,19 @@ export const SearchPage = () => {
         placeholder="Что хотите посмотреть?"
         enterButton="Найти"
         size="large"
-        value={searchText || request.searchText}
+        value={searchText}
         className={searchInput}
         onChange={(e) => handleOnChange(e)}
         suffix={heart}
         onSearch={() => onSearch()}
       />
 
-      {isSuccess && (
+      {data?.items.length && (
         <VideosBlock
           data={data}
-          isSuccess={isSuccess}
           searchText={searchText}
           sort={choice?.sort}
+          isLoading={isLoading}
         />
       )}
       <ModalWindow

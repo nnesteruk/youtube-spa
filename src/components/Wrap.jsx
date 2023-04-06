@@ -25,7 +25,6 @@ export const Wrap = () => {
         JSON.stringify([...users, { token: partialToken, data: [] }]),
       );
     }
-
     currentUser.data = [...requests];
     return localStorage.setItem('saved', JSON.stringify([...users]));
   };
@@ -75,6 +74,7 @@ export const Wrap = () => {
                   break;
                 case '3':
                   navigate('/');
+                  // localStorage.removeItem('token');
                   localStorage.clear();
                   dispatch(clearRequestAction());
                   break;

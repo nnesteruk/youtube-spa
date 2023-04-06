@@ -1,4 +1,6 @@
 .videos {
+  display: flex;
+  flex-direction: column;
   &__header-block {
     display: flex;
     margin: 40px 0px 20px;
@@ -22,7 +24,6 @@
   &__count {
     font-weight: 400;
     display: inline-block;
-    // margin-left: 15px;
     color: #1717194d;
   }
 
@@ -30,13 +31,17 @@
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    // flex: 0 1 25%;
+    gap: 20px;
   }
   &__block {
     width: 245px;
+    // width: 23.55%;
     display: flex;
     flex-direction: column;
-    // flex: 1 1 25%;
+    // @media (max-width: 1060px) {
+    //   flex: 0 1 33.333%;
+    // }
   }
   &__text {
     display: flex;
@@ -53,8 +58,14 @@
   }
 
   &__img {
-    width: 245px;
-    height: 138px;
+    img {
+      width: 245px;
+      height: 138px;
+    }
+
+    // @media (max-width: 1060px) {
+    //   height: 100%;
+    // }
   }
 
   &__content2 {
