@@ -39,6 +39,12 @@
     display: flex;
     flex-direction: column;
   }
+  & h2:hover {
+    color: #39383893;
+  }
+  & h4:hover {
+    color: black;
+  }
 }
 
 .block-content {
@@ -128,13 +134,15 @@
 
   &__img {
     flex: 0 1 33.333%;
+    border-radius: 10px;
     img {
       width: 100%;
       border-radius: 10px;
     }
     &:hover {
+      box-shadow: 2px 10px 2px 1px rgba(36, 36, 37, 0.191);
       transform: scale(1.05);
-      transition: transform 124ms linear;
+      transition: transform 124ms linear, box-shadow 124ms linear;
     }
     @media (max-width: 900px) {
       flex: 0 1 50%;

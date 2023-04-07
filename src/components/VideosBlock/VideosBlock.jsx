@@ -24,8 +24,8 @@ export const VideosBlock = ({ data, searchText, sort, isLoading }) => {
             Видео по запросу <span>«{searchText}»</span>
           </p>
           <span className="videos__count">{totalResults}</span>
-          {/* <span>Количество видео: {videos.length}</span>
-          <span>Сортировка: {sort}</span> */}
+          <span>Количество видео: {videos.length}</span>
+          <span>Сортировка: {sort}</span>
         </div>
         <div>
           <UnorderedListOutlined className={listStyle} onClick={listStyleHandlle} />
