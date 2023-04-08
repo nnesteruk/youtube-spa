@@ -3,7 +3,7 @@ import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from './Modal/ModalWindow';
 import { useEffect, useState } from 'react';
 import { youtubeApi } from '../redux/services/youtubeApi';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { VideosBlock } from './VideosBlock/VideosBlock';
 import { useSelector } from 'react-redux';
 
@@ -11,16 +11,13 @@ const { Search } = Input;
 
 export const SearchPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
   const [openTooltip, setOpenTooltip] = useState(true);
-  const checkChoice = JSON.parse(localStorage.getItem('choice')) || null;
 
   const { choice } = useSelector((state) => state.favorites);
-  const checkUser = useOutletContext();
-  const { data, isLoading, isSuccess } = youtubeApi.useGetListQuery(
+  const { data, isLoading } = youtubeApi.useGetListQuery(
     {
       searchText,
       limit: choice?.count || 12,
@@ -28,39 +25,23 @@ export const SearchPage = () => {
     },
     { skip },
   );
-
-  // useEffect(() => {
-  //   localStorage.setItem(
-  //     'request',
-  //     JSON.stringify({
-  //       searchText,
-  //       limit: choice?.count || 12,
-  //       order: choice?.sort || 'relevance',
-  //     }),
-  //   );
-  //   localStorage.setItem('data', JSON.stringify(data));
-
-  //   if (request?.searchText) {
-  //     setSearchText(request?.searchText);
-  //     setSkip(false);
-  //   }
-  //   return () => {
-  //     localStorage.removeItem('request');
-  //     setSkip(true);
-  //   };
-  // }, [data]);
+  const searchBtnClick = JSON.parse(localStorage.getItem('searchBtnClick')) || false;
 
   useEffect(() => {
-    if (choice?.request) {
-      setSearchText(choice?.request);
+    const getSaveRequest = JSON.parse(localStorage.getItem('choice')) || null;
+    const search = JSON.parse(localStorage.getItem('search')) || null;
+    console.log('click', searchBtnClick);
+    if (!searchBtnClick && getSaveRequest) {
+      setSearchText(getSaveRequest?.request);
       setSkip(false);
       setOpenTooltip(!openTooltip);
+    } else if (searchBtnClick) {
+      setSearchText(search?.searchText);
+      setSkip(false);
     }
-    // console.log(choice);
-    return () => {
-      localStorage.removeItem('choice');
-    };
-  }, [choice]);
+    return () => {};
+  }, [searchBtnClick]);
+
   const handleOnChange = (event) => {
     setSearchText(event.target.value);
     setSkip(true);
@@ -104,7 +85,15 @@ export const SearchPage = () => {
 
   const onSearch = () => {
     setSkip(false);
-    console.log(data);
+    localStorage.setItem(
+      'search',
+      JSON.stringify({
+        searchText,
+        limit: 12,
+        order: 'relevance',
+      }),
+    );
+    localStorage.setItem('searchBtnClick', true);
   };
 
   return (

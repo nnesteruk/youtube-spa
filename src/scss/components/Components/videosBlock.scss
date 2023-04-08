@@ -142,7 +142,7 @@
     &:hover {
       box-shadow: 2px 10px 2px 1px rgba(36, 36, 37, 0.191);
       transform: scale(1.05);
-      transition: transform 124ms linear, box-shadow 124ms linear;
+      transition: transform 0.5s linear, box-shadow 0.5s linear;
     }
     @media (max-width: 900px) {
       flex: 0 1 50%;

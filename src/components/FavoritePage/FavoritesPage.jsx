@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useOutletContext } from 'react-router-dom';
-import { addUsersAction } from '../../redux/favorite/slice';
 import { SaveRequest } from './SaveRequest';
 
 export const FavoritesPage = () => {
   const { requests } = useSelector((state) => state.favorites);
   const checkUser = useOutletContext();
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     checkUser();

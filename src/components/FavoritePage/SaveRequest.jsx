@@ -15,6 +15,7 @@ export const SaveRequest = ({ item, favorites }) => {
     const favoriteRequest = favorites.find((item) => item.name === request);
     dispatch(addChoiceAction(favoriteRequest));
     localStorage.setItem('choice', JSON.stringify(favoriteRequest));
+    localStorage.setItem('searchBtnClick', false);
     navigate('/main');
   };
   return (

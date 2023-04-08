@@ -8,11 +8,6 @@ const check = () => {
   return currentUser ? currentUser.data : [];
 };
 
-// const check = () => {
-// const currentUser = saved.find((item) => item.token === token.slice(0, token.indexOf('.')));
-// return saved.token === token.slice(0, token.indexOf('.')) ? saved.data : []; //? для пользователей (через объект)
-// };
-
 const initialState = {
   requests: check(),
   choice: null,
@@ -45,6 +40,7 @@ export const favoriteSlice = createSlice({
 
     addChoiceAction(state, action) {
       state.choice = { ...action.payload };
+      state.searchBtnClick = false;
     },
 
     clearRequestAction(state, action) {
