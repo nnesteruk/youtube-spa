@@ -12,7 +12,7 @@ export const Login = () => {
       .post(`${process.env.REACT_APP_BASEURL}/auth/login`, values)
       .then(({ data }) => {
         localStorage.setItem('token', data.token);
-        navigate('/main');
+        navigate('/youtube-spa/main');
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -67,7 +67,7 @@ export const Login = () => {
             Войти
           </Button>
           <p className="login-form__buttons-registration">
-            <Link to="/registration">Зарегистрироваться</Link>
+            <Link to="/youtube-spa/registration">Зарегистрироваться</Link>
           </p>
         </Form.Item>
       </Form>

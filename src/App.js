@@ -15,17 +15,17 @@ import { FavoritesPage } from './components/FavoritePage/FavoritesPage';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/" element=<Login /> />
-      <Route path="/registration" element=<Registration /> />
+      <Route path="/youtube-spa" element=<Login /> />
+      <Route path="/youtube-spa/registration" element=<Registration /> />
       <Route
-        path="/main"
+        path="/youtube-spa/main"
         element={
           <RequireAuth>
             <Wrap />
           </RequireAuth>
         }>
         <Route index element=<SearchPage /> />
-        <Route path="/main/favorites" element=<FavoritesPage /> />
+        <Route path="/youtube-spa/main/favorites" element=<FavoritesPage /> />
       </Route>
     </Route>,
   ),

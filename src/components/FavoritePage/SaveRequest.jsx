@@ -16,7 +16,7 @@ export const SaveRequest = ({ item, favorites }) => {
     dispatch(addChoiceAction(favoriteRequest));
     localStorage.setItem('choice', JSON.stringify(favoriteRequest));
     localStorage.setItem('searchBtnClick', false);
-    navigate('/main');
+    navigate('/youtube-spa/main');
   };
   return (
     <Fragment key={item.id}>

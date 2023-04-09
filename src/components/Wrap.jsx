@@ -30,15 +30,14 @@ export const Wrap = () => {
   };
 
   const home = () => {
-    const keyToSave = ['token', 'saved'];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (keyToSave.find((item) => item !== key)) {
+      if (key !== 'token' && key !== 'saved') {
         localStorage.removeItem(key);
       }
     }
+    navigate('/youtube-spa/main');
     window.location.reload();
-    navigate('/main');
   };
 
   return (
@@ -62,13 +61,13 @@ export const Wrap = () => {
             onClick={(item) => {
               switch (item.key) {
                 case '1':
-                  navigate('/main');
+                  navigate('/youtube-spa/main');
                   break;
                 case '2':
-                  navigate('/main/favorites');
+                  navigate('/youtube-spa/main/favorites');
                   break;
                 case '3':
-                  navigate('/');
+                  navigate('/youtube-spa');
                   localStorage.clear();
                   dispatch(clearRequestAction());
                   break;

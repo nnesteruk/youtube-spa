@@ -31,7 +31,7 @@ export const Registration = () => {
       .then((response) => response)
       .catch((error) => error);
     alert('Registration is succsessfuly');
-    navigate('/');
+    navigate('/youtube-spa');
   };
 
   return (
@@ -146,7 +146,9 @@ export const Registration = () => {
           </Button>
           <p>
             Уже есть аккаунт?
-            <NavLink to="/" className={({ isActive }) => (isActive ? '' : 'active-link')}>
+            <NavLink
+              to="/youtube-spa"
+              className={({ isActive }) => (isActive ? '' : 'active-link')}>
               Войти
             </NavLink>
           </p>

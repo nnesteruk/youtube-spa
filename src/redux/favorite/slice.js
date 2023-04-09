@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('token') || '';
 const saved = JSON.parse(localStorage.getItem('saved')) || [];
 
 const check = () => {

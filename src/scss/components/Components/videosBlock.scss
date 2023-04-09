@@ -39,13 +39,17 @@
     display: flex;
     flex-direction: column;
   }
-  & h2:hover {
-    color: #39383893;
+  & h2 {
     transition-duration: 0.5s;
+    &:hover {
+      color: #39383893;
+    }
   }
-  & h4:hover {
-    color: black;
+  & h4 {
     transition-duration: 0.5s;
+    &:hover {
+      color: black;
+    }
   }
 }
 

@@ -56,7 +56,7 @@ export const SearchPage = () => {
       title={() => (
         <div className="tooltip">
           <p>Поиск сохранён в разделе «Избранное»</p>
-          <Link to="/main/favorites" className="tooltip__link">
+          <Link to="/youtube-spa/main/favorites" className="tooltip__link">
             Перейти в избранное
           </Link>
         </div>
