@@ -11,12 +11,14 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
   const dispatch = useDispatch();
   const formRef = useRef(null);
 
+  useEffect(() => {
+    formRef.current?.resetFields();
+    formRef.current?.setFieldValue('request', searchText);
+  }, [isModalOpen]);
+
   const onChange = (number) => {
     setCount(number);
   };
-  useEffect(() => {
-    formRef.current?.resetFields();
-  }, []);
 
   const addRequest = (favorite) => dispatch(addFavoriteAction(favorite));
   const handleSave = ({ request, name, sort }) => {
@@ -27,13 +29,11 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
       sort,
       count,
     });
-    formRef.current?.resetFields();
     setCount(1);
     setIsModalOpen(false);
     setSaveRequest(true);
   };
   const handleNotSave = () => {
-    formRef.current?.resetFields();
     setIsModalOpen(false);
   };
 
@@ -56,7 +56,7 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
           onFinish={handleSave}
           ref={formRef}>
           <label>Запрос</label>
-          <Form.Item name="request" initialValue={searchText}>
+          <Form.Item name="request">
             <Input className="input" placeholder="input placeholder" disabled={true} />
           </Form.Item>
 

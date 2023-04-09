@@ -10,7 +10,7 @@ const check = () => {
 
 const initialState = {
   requests: check(),
-  choice: null,
+  choice: null || JSON.parse(localStorage.getItem('choice')),
 };
 
 export const favoriteSlice = createSlice({

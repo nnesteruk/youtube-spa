@@ -31,6 +31,3 @@ export const youtubeApi = createApi({
     }),
   }),
 });
-
-// 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults={limit}&order={order}}&q={searchText}&type=video&key=[YOUR_API_KEY]'
-//export const { useGetListQuery } = youtubeApi;

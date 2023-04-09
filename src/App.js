@@ -9,7 +9,7 @@ import { Login } from './components/Authorization/Login';
 import { Registration } from './components/Authorization/Registration';
 import { RequireAuth } from './hoc/RequireAuth';
 import { Wrap } from './components/Wrap';
-import { SearchPage } from './components/SearchPage';
+import { SearchPage } from './components/SearchPage/SearchPage';
 import { FavoritesPage } from './components/FavoritePage/FavoritesPage';
 
 const router = createBrowserRouter(

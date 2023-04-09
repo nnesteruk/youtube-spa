@@ -1,10 +1,10 @@
 import { Input, Tooltip } from 'antd';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
-import { ModalWindow } from './Modal/ModalWindow';
+import { ModalWindow } from '../Modal/ModalWindow';
 import { useEffect, useState } from 'react';
-import { youtubeApi } from '../redux/services/youtubeApi';
+import { youtubeApi } from '../../redux/services/youtubeApi';
 import { Link } from 'react-router-dom';
-import { VideosBlock } from './VideosBlock/VideosBlock';
+import { VideosBlock } from './VideosBlock';
 import { useSelector } from 'react-redux';
 
 const { Search } = Input;
@@ -16,7 +16,9 @@ export const SearchPage = () => {
   const [skip, setSkip] = useState(true);
   const [openTooltip, setOpenTooltip] = useState(true);
 
-  const { choice } = useSelector((state) => state.favorites);
+  const { choice, requests } = useSelector((state) => state.favorites);
+
+  const getSaveRequest = JSON.parse(localStorage.getItem('choice')) || null;
   const { data, isLoading } = youtubeApi.useGetListQuery(
     {
       searchText,
@@ -28,9 +30,7 @@ export const SearchPage = () => {
   const searchBtnClick = JSON.parse(localStorage.getItem('searchBtnClick')) || false;
 
   useEffect(() => {
-    const getSaveRequest = JSON.parse(localStorage.getItem('choice')) || null;
     const search = JSON.parse(localStorage.getItem('search')) || null;
-    console.log('click', searchBtnClick);
     if (!searchBtnClick && getSaveRequest) {
       setSearchText(getSaveRequest?.request);
       setSkip(false);
@@ -51,33 +51,33 @@ export const SearchPage = () => {
     setIsModalOpen(true);
   };
 
-  const suffix =
-    searchText && (saveRequest || choice) ? (
-      <Tooltip
-        title={() => (
-          <div className="tooltip">
-            <p>Поиск сохранён в разделе «Избранное»</p>
-            <Link to="/main/favorites" className="tooltip__link">
-              Перейти в избранное
-            </Link>
-          </div>
-        )}
-        color="white"
-        overlayInnerStyle={{
-          color: 'black',
-          backgroundColor: '#fff',
-          width: '220px',
-          padding: '14px',
-        }}
-        placement="bottom"
-        mouseLeaveDelay={0.5}
-        defaultOpen={openTooltip}
-        onChange={(open) => open}>
-        <HeartTwoTone className="icon-heart" onClick={() => heartClickHandler()} />
-      </Tooltip>
-    ) : (
-      <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
-    );
+  const suffix = requests.find((item) => item.request === searchText) ? (
+    // saveRequest || (choice && searchBtnClick === false) ? (
+    <Tooltip
+      title={() => (
+        <div className="tooltip">
+          <p>Поиск сохранён в разделе «Избранное»</p>
+          <Link to="/main/favorites" className="tooltip__link">
+            Перейти в избранное
+          </Link>
+        </div>
+      )}
+      color="white"
+      overlayInnerStyle={{
+        color: 'black',
+        backgroundColor: '#fff',
+        width: '220px',
+        padding: '14px',
+      }}
+      placement="bottom"
+      mouseLeaveDelay={0.5}
+      defaultOpen={openTooltip || saveRequest}
+      onChange={(open) => open}>
+      <HeartTwoTone className="icon-heart" onClick={() => heartClickHandler()} />
+    </Tooltip>
+  ) : (
+    <HeartOutlined className="icon-heart" onClick={() => heartClickHandler()} />
+  );
 
   const heart = data ? suffix : null;
   const content = data ? 'content2 _container' : 'content _container';
@@ -85,6 +85,7 @@ export const SearchPage = () => {
 
   const onSearch = () => {
     setSkip(false);
+    setSaveRequest(false);
     localStorage.setItem(
       'search',
       JSON.stringify({

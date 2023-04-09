@@ -29,29 +29,24 @@ export const Wrap = () => {
     return localStorage.setItem('saved', JSON.stringify([...users]));
   };
 
-  // const checkUser = () => {
-  //   const token = localStorage.getItem('token');
-  //   const partialToken = token.slice(0, token.indexOf('.'));
-  //   const users = JSON.parse(localStorage.getItem('saved')) || { token: partialToken, data: [] };
-  //   const currentUser = users.token === partialToken;
-
-  //   if (!currentUser) {
-  //     return localStorage.setItem(
-  //       'saved',
-  //       JSON.stringify([...users, { token: partialToken, data: [] }]), //? для пользователей (объект)
-  //     );
-  //   }
-
-  //   users.data = [...requests];
-  //   return localStorage.setItem('saved', JSON.stringify({ ...users }));
-  // };
+  const home = () => {
+    const keyToSave = ['token', 'saved'];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (keyToSave.find((item) => item !== key)) {
+        localStorage.removeItem(key);
+      }
+    }
+    window.location.reload();
+    navigate('/main');
+  };
 
   return (
     <Layout className="layout ">
       <Header className="layout__header " id="head">
         <div className="header__container _container">
           <div className="header__logo">
-            <img className="header__icon" src={icon} alt="Icon" />
+            <img className="header__icon" src={icon} alt="Icon" onClick={() => home()} />
           </div>
           <Menu
             theme="light"
