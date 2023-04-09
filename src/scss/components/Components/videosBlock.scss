@@ -41,9 +41,11 @@
   }
   & h2:hover {
     color: #39383893;
+    transition-duration: 0.5s;
   }
   & h4:hover {
     color: black;
+    transition-duration: 0.5s;
   }
 }
 

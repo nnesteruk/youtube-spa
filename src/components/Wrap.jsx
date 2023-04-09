@@ -69,7 +69,6 @@ export const Wrap = () => {
                   break;
                 case '3':
                   navigate('/');
-                  // localStorage.removeItem('token');
                   localStorage.clear();
                   dispatch(clearRequestAction());
                   break;

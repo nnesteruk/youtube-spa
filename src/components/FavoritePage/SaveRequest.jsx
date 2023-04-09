@@ -29,7 +29,6 @@ export const SaveRequest = ({ item, favorites }) => {
             className="buttons__change"
             onClick={() => {
               setIsModalOpen(true);
-              console.log(item.name, item.count);
             }}>
             Изменить
           </button>

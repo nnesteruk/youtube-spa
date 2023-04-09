@@ -52,7 +52,6 @@ export const SearchPage = () => {
   };
 
   const suffix = requests.find((item) => item.request === searchText) ? (
-    // saveRequest || (choice && searchBtnClick === false) ? (
     <Tooltip
       title={() => (
         <div className="tooltip">
