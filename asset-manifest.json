@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/youtube-spa/static/css/main.69b77ee5.css",
-    "main.js": "/youtube-spa/static/js/main.aa64b4a6.js",
+    "main.css": "/youtube-spa/static/css/main.96a4a63f.css",
+    "main.js": "/youtube-spa/static/js/main.d4855b46.js",
     "static/media/youtube.ico": "/youtube-spa/static/media/youtube.81b86f178a7512e0f6ee.ico",
     "index.html": "/youtube-spa/index.html",
-    "main.69b77ee5.css.map": "/youtube-spa/static/css/main.69b77ee5.css.map",
-    "main.aa64b4a6.js.map": "/youtube-spa/static/js/main.aa64b4a6.js.map"
+    "main.96a4a63f.css.map": "/youtube-spa/static/css/main.96a4a63f.css.map",
+    "main.d4855b46.js.map": "/youtube-spa/static/js/main.d4855b46.js.map"
   },
   "entrypoints": [
-    "static/css/main.69b77ee5.css",
-    "static/js/main.aa64b4a6.js"
+    "static/css/main.96a4a63f.css",
+    "static/js/main.d4855b46.js"
   ]
 }
