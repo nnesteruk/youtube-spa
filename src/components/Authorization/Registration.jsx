@@ -148,7 +148,7 @@ export const Registration = () => {
             Уже есть аккаунт?
             <NavLink
               to="/youtube-spa"
-              className={({ isActive }) => (isActive ? '' : 'active-link')}>
+              className={({ isActive }) => (!isActive ? '' : 'active-link')}>
               Войти
             </NavLink>
           </p>

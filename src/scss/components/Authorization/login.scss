@@ -66,6 +66,9 @@
       margin-top: 10px;
       display: flex;
       justify-content: center;
+      & a:hover {
+        color: #3d71bd;
+      }
     }
   }
 }
