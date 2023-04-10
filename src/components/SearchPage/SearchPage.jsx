@@ -14,7 +14,6 @@ export const SearchPage = () => {
   const [searchText, setSearchText] = useState('');
   const [saveRequest, setSaveRequest] = useState(false);
   const [skip, setSkip] = useState(true);
-  const [openTooltip, setOpenTooltip] = useState(true);
 
   const { choice, requests } = useSelector((state) => state.favorites);
 
@@ -34,7 +33,6 @@ export const SearchPage = () => {
     if (!searchBtnClick && getSaveRequest) {
       setSearchText(getSaveRequest?.request);
       setSkip(false);
-      setOpenTooltip(!openTooltip);
     } else if (searchBtnClick) {
       setSearchText(search?.searchText);
       setSkip(false);
@@ -70,7 +68,7 @@ export const SearchPage = () => {
       }}
       placement="bottom"
       mouseLeaveDelay={0.5}
-      defaultOpen={openTooltip || saveRequest}
+      defaultOpen={saveRequest ? true : false}
       onChange={(open) => open}>
       <HeartTwoTone className="icon-heart" onClick={() => heartClickHandler()} />
     </Tooltip>
