@@ -28,10 +28,19 @@ export const Registration = () => {
   const onFinish = (values) => {
     axios
       .post(`${process.env.REACT_APP_BASEURL}/users/register`, values)
-      .then((response) => response)
-      .catch((error) => error);
-    alert('Registration is succsessfuly');
-    navigate('/youtube-spa');
+      .then((response) => {
+        if (response) {
+          console.log(response);
+          alert('Registration is succsessfuly');
+          navigate('/youtube-spa');
+          return response;
+        }
+      })
+      .catch((error) => {
+        const [errorMessage] = error.response.data.errors;
+        alert(errorMessage.msg);
+        return error;
+      });
   };
 
   return (

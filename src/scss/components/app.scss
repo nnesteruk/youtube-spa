@@ -4,11 +4,17 @@
 @import '../components/Authorization/registration.scss';
 @import './Components/favorietsPage.scss';
 @import './modal.scss';
-@import './Components/videosBlock.scss';
+@import './Components/videosSection.scss';
 
 #head {
   padding-inline: 0;
   background-color: white;
+}
+
+body {
+  // opacity: 0;
+  // background-color: #0f0f0f;
+  background-color: #f5f5f5;
 }
 
 .layout {

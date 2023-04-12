@@ -1,10 +1,10 @@
 import { Input, Tooltip } from 'antd';
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
 import { ModalWindow } from '../Modal/ModalWindow';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { youtubeApi } from '../../redux/services/youtubeApi';
 import { Link } from 'react-router-dom';
-import { VideosBlock } from './VideosBlock';
+import { VideosSection } from './VideosSection/VideosSection.jsx';
 import { useSelector } from 'react-redux';
 
 const { Search } = Input;
@@ -28,7 +28,7 @@ export const SearchPage = () => {
   );
   const searchBtnClick = JSON.parse(localStorage.getItem('searchBtnClick')) || false;
 
-  useEffect(() => {
+  const reloadPage = useCallback(() => {
     const search = JSON.parse(localStorage.getItem('search')) || null;
     if (!searchBtnClick && getSaveRequest) {
       setSearchText(getSaveRequest?.request);
@@ -37,7 +37,10 @@ export const SearchPage = () => {
       setSearchText(search?.searchText);
       setSkip(false);
     }
-    return () => {};
+  }, [getSaveRequest, searchBtnClick]);
+
+  useEffect(() => {
+    reloadPage();
   }, [searchBtnClick]);
 
   const handleOnChange = (event) => {
@@ -109,7 +112,7 @@ export const SearchPage = () => {
       />
 
       {data?.items.length && (
-        <VideosBlock
+        <VideosSection
           data={data}
           searchText={searchText}
           sort={choice?.sort}

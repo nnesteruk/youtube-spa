@@ -1,6 +1,7 @@
 .videos {
   display: flex;
   flex-direction: column;
+  color: black;
 
   &__header-block {
     display: flex;
@@ -25,7 +26,8 @@
   &__count {
     font-weight: 400;
     display: inline-block;
-    color: #1717194d;
+    opacity: 0.33;
+    // color: #1717194d;
   }
 
   &__block-content {
@@ -42,13 +44,13 @@
   & h2 {
     transition-duration: 0.5s;
     &:hover {
-      color: #39383893;
+      // color: #39383893;
     }
   }
   & h4 {
     transition-duration: 0.5s;
     &:hover {
-      color: black;
+      // color: black;
     }
   }
 }
@@ -107,7 +109,7 @@
     cursor: pointer;
     & h4 {
       font-weight: 400;
-      color: #1717194d;
+      // color: #1717194d;
       font-size: 16px;
     }
   }
@@ -168,7 +170,7 @@
     & h4 {
       margin: 0;
       font-weight: 400;
-      color: #1717194d;
+      // color: #1717194d;
     }
     @media (max-width: 900px) {
       flex: 0 1 50%;
