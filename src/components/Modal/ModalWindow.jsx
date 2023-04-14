@@ -45,7 +45,12 @@ export const ModalWindow = ({ isModalOpen, setIsModalOpen, searchText, setSaveRe
       footer={null}
       width={510}
       closable={false}
-      bodyStyle={{ height: '500px', padding: '0px', width: '430px', margin: '0px auto' }}>
+      bodyStyle={{
+        height: '500px',
+        padding: '0px',
+        width: '430px',
+        margin: '0px auto',
+      }}>
       <div className="modal__content">
         <h1 className="modal__title">Сохранить запрос</h1>
         <Form

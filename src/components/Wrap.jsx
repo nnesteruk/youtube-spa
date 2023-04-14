@@ -4,10 +4,12 @@ import icon from '../assets/img/youtube.ico';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearRequestAction } from '../redux/favorite/slice';
+import { useTheme } from '../hooks/useTheme';
 
 const { Header, Content } = Layout;
 
 export const Wrap = () => {
+  const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,7 +19,7 @@ export const Wrap = () => {
     const token = localStorage.getItem('token');
     const partialToken = token.slice(0, token.indexOf('.'));
     const users = JSON.parse(localStorage.getItem('saved')) || [];
-    const currentUser = users.find((user) => user.token === partialToken); //? для пользователей(массив)
+    const currentUser = users.find((user) => user.token === partialToken);
 
     if (!currentUser) {
       return localStorage.setItem(
@@ -48,7 +50,8 @@ export const Wrap = () => {
             <img className="header__icon" src={icon} alt="Icon" onClick={() => home()} />
           </div>
           <Menu
-            theme="light"
+            // theme="light"
+            className="header__menu"
             mode="horizontal"
             defaultSelectedKeys={['1']}
             items={['Поиск', 'Избранное', 'Выйти'].map((item, index) => {

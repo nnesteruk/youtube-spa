@@ -26,8 +26,10 @@
     padding: 14px 0px 14px 20px;
     color: rgba(0, 0, 0, 1);
     font-weight: 500;
-    cursor: pointer;
     display: inline-block;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 .buttons {

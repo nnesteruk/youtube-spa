@@ -4,7 +4,7 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import './scss/components/app.scss';
+import './scss/app.scss';
 import { Login } from './components/Authorization/Login';
 import { Registration } from './components/Authorization/Registration';
 import { RequireAuth } from './hoc/RequireAuth';

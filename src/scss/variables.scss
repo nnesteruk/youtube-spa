@@ -1,0 +1,48 @@
+// :root {
+html[data-theme='light'] {
+  --var-body-bg: #f5f5f5;
+  --var-body-fc: #000;
+  --var-body-fc-channel: #aaa;
+
+  --modal-body: #fff;
+
+  --text-secondary: #1717194d;
+
+  --menu-text-color: #1677ff;
+  --menu-body-bg: #fff;
+
+  --icon-heart: #1890ff;
+
+  --button-text-color: #ffffff;
+  --button-background-color: #1677ff;
+  // --button-border-color: #ba8fc2;
+
+  --input-text-color: #0e0d0d;
+  --input-placeholder-text-color: #d9d9d9;
+  --input-background-color: #ffffff;
+  --input-border-color: #d9d9d9;
+  --input-border-color-focus: #1677ff;
+}
+
+// [dark] {
+html[data-theme='dark'] {
+  --var-body-bg: #0f0f0f;
+  --var-body-fc: #fff;
+  --var-body-fc-channel: #aaa;
+
+  --text-secondary: #1717194d;
+
+  --menu-body-bg: #0f0f0f;
+
+  --icon-heart: #1b1b1b;
+
+  --button-text-color: #ffffff;
+  --button-background-color: #f1f1f1;
+  --button-border-color: #6b6b6bb7;
+
+  --input-text-color: #ffffff;
+  --input-placeholder-text-color: #c7c6c65c;
+  --input-background-color: #1b1b1b;
+  --input-border-color: #6b6b6bb7;
+  --input-border-color-focus: #1677ff;
+}
